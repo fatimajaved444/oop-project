@@ -505,7 +505,183 @@ public:
 	}
 };
 
+class courses :public student {
+protected:
+	int code;
+	string name;
+	string inst;
+	int credits;
+	int capacity;
 
+	string students;
+public:
+	void addstudentincourses()
+	{
+		int ccode;
+		cout << "Enter coursecode: " << endl;
+		cin >> ccode;
+
+		ifstream file("c.txt");
+		if (!file.is_open())
+		{
+			cout << "File not opened" << endl;
+			return;
+		}
+
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open())
+		{
+			cout << "File not opened" << endl;
+			file.close();
+			return;
+		}
+
+		bool b = false;
+		string line;
+		int num;
+		cout << "Enter the number of students: " << endl;
+		cin >> num;
+
+		cout << "Enter the roll numbers: " << endl;
+		string students;
+		for (int i = 0; i < num; i++)
+		{
+			int rn;
+			cin >> rn;
+			students += to_string(rn) + " ";
+		}
+
+		while (getline(file, line))
+		{
+			istringstream c(line);
+			int code;
+			c >> code;
+
+			if (code == ccode)
+			{
+				b = true;
+				//int credits, capacity;
+				string  existingstudents;
+
+				c >> credits >> capacity >> name >> inst;
+				c >> ws; // Skip whitespaces
+				getline(c, existingstudents);
+
+				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << name << "\t\t" << inst;
+				outfile << "\t\t" << existingstudents << " " << students << endl;
+				continue;
+			}
+
+			outfile << line << endl;
+		}
+
+		file.close();
+		outfile.close();
+
+		if (b)
+		{
+			if (remove("c.txt") != 0)
+			{
+				cout << "Error in deleting the file" << endl;
+			}
+
+			if (rename("tempfile.txt", "c.txt") != 0)
+			{
+				cout << "Error in renaming the file" << endl;
+			}
+			else
+			{
+				cout << "Students added to the course successfully." << endl;
+				display2("c.txt");
+			}
+		}
+		else
+		{
+			cout << "Course not found" << endl;
+			remove("tempfile.txt"); // Delete the temporary file
+		}
+	}
+
+	void removestudentfromcourses() {
+		int ccode;
+		cout << "Enter course code: " << endl;
+		cin >> ccode;
+
+		ifstream file("c.txt");
+		if (!file.is_open()) {
+			cout << "File not opened" << endl;
+			return;
+		}
+
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open()) {
+			cout << "File not opened" << endl;
+			file.close();
+			return;
+		}
+
+		bool courseFound = false;
+		string line;
+
+
+		cout << "Enter the roll numbers: " << endl;
+		int rn;
+
+		cin >> rn;
+
+		while (getline(file, line)) {
+			istringstream c(line);
+			int code;
+			c >> code;
+
+			if (code == ccode)
+			{
+				courseFound = true;
+				//	string credits, capacity, name, inst, existingstudents, students;
+				string existingstudents;
+				c >> credits >> capacity >> name >> inst;
+				c >> ws; // Skip whitespaces
+				getline(c, existingstudents);
+				string students;
+				// Remove the specified roll numbers from the existing students
+				istringstream ss(existingstudents);
+				int roll;
+				while (ss >> roll) {
+					if (roll != rn) {
+						students += to_string(roll) + " ";
+					}
+				}
+				// Write back the updated information to the output file
+				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << name << "\t\t" << inst;
+				outfile << "\t" << students << endl;
+				continue;
+			}
+
+			outfile << line << endl;
+		}
+
+		file.close();
+		outfile.close();
+
+		// Remove the original file and rename the temp file
+		if (courseFound) {
+			if (remove("c.txt") != 0) {
+				cout << "Error in deleting the file" << endl;
+			}
+
+			if (rename("tempfile.txt", "c.txt") != 0) {
+				cout << "Error in renaming the file" << endl;
+			}
+			else {
+				cout << "Student removed from the course successfully." << endl;
+			}
+		}
+		else {
+			cout << "Course not found" << endl;
+			remove("tempfile.txt"); // Delete the temporary file
+		}
+	}
+};
 //
 //class validator :public student,public courses{
 //public:
@@ -522,8 +698,8 @@ public:
 	void menu()
 	{
 		student obj;
-	//	courses rhs;
-	//	attendance obj1(&obj);
+		courses rhs;
+	
 		int key = 0;
 		//obj.display1("jav.txt");
 		cout << endl << endl;
@@ -611,14 +787,14 @@ public:
 					}
 					else if (k2 ==3 )
 					{
-						///////////////rhs.display2("c.txt");
-					////////////////////	rhs.addstudentincourses();
+						rhs.display2("c.txt");
+						rhs.addstudentincourses();
 					}
 					else if (k2 == 4)
 					{
-						//////////////rhs.display2("c.txt");
-					/////////////	rhs.removestudentfromcourses();
-						//////////////rhs.display2("c.txt");
+						rhs.display2("c.txt");
+						rhs.removestudentfromcourses();
+						rhs.display2("c.txt");
 					}
 
 
@@ -702,9 +878,9 @@ public:
 					}
 					else if (k3 == 2)
 					{
-						rhs.display1("jav.txt");
-						obj.withdraw();
-						rhs.display1("jav.txt");
+						//rhs.display1("jav.txt");
+						//obj.withdraw();
+						//rhs.display1("jav.txt");
 
 					}
 				}

@@ -1,14 +1,14 @@
 
 rollnum		contact		age		name				courses		
 
-5200		100001		18		amna amjaad			  oop de   dld linear   oop de 
-5565		200002		19		muhammad wali			
-6661		300003		24		abdul wahab			  dld de 
+5200		100001		18		amnaamjaad			 dld
+5200		100001		18		amna amjaad			decpsdld 		
+5565		200002		19		muhammad 			
+6661		300003		24		abdul wahab			
 6652		400004		22		fatima javed			 
 6846		500005		20		simal butt			
 7070		600006		18		ahmed akbar			
 7500		700007		19		azlan malik		
 8200		800008		20		nimra fahad		
-8882		900009		18		fahad yousaf			  dld de 
-4444		555555		32		amna farooq  			oop de   cps linear 
-5555		666666		23		hamna ali
+8882		900009		18		fahadyousaf			dld
+8882		900009		18		fahad yousaf			dld de 

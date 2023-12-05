@@ -14,14 +14,13 @@ protected:
 	int age;
 	string* rcourses;// = new string[max];///////////////////////
 	int max = 8;
-	
 
 	int present;
 	int absent;
 	int total;
 	float per;
 	int obtained;
-	int numofst = 0;
+	int numofst = 9;
 	int maxst = 100;
 	//int* p;
 public:
@@ -55,6 +54,7 @@ public:
 	}
 	void addstudent()
 	{
+		//int numofst = 10;
 		const int size = 50;
 		int studentarray[size] = {5200,5565,6661,6652,6846,7070,7500,8200,8882};
 
@@ -72,7 +72,8 @@ public:
 			bool check = false;
 			cout << "rollnum: ";
 			cin >> rollnum;
-			for (int i = 0; i < 9;i++)
+
+			for (int i = 0; i < numofst;i++)
 			{
 				if (rollnum==studentarray[i] )
 				{
@@ -90,7 +91,7 @@ public:
 				cin >> age;
 				/*cout << "courses: ";
 				cin >> courses;*/
-
+				studentarray[numofst] = rollnum;
 				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
 				numofst++;
 				outfile.close();
@@ -98,8 +99,8 @@ public:
 			}
 			
 		}
+		
 	}
-
 
 	void display1(const string& temp) {
 		cout << endl << endl << "---------------- File Contents --------------------------" << endl << endl;
@@ -299,7 +300,6 @@ public:
 		}
 		return false;
 	}
-
 	void registeration()
 	{
 		//const int max = 8;
@@ -410,6 +410,8 @@ public:
 	}
 
 
+	
+
 	void withdraw() {
 		int r;
 		cout << "Enter roll number: " << endl;
@@ -428,49 +430,50 @@ public:
 			return;
 		}
 
-		bool studentFound = false;
+		bool studentfound = false;
 		string line;
 
 		cout << "Enter the course to withdraw: " << endl;
-		string courseToWithdraw;
-		cin >> courseToWithdraw;
+		string courseTowithdraw;
+		cin >> courseTowithdraw;
 
 		while (getline(file, line)) {
 			istringstream c(line);
 			int rollnumFromFile;
 			c >> rollnumFromFile;
-			c >> rollnumFromFile;
 
 			if (rollnumFromFile == r) {
-				studentFound = true;
-				string students;
-				c >> contact >> age >> name;
-
+				studentfound = true;
+				
+				c >> contact >> age;
+				getline(c >> ws, name);  // Skip newline after age
+				string courses;
 				c >> ws; // Skip whitespaces
-				getline(c, students);
+				getline(c, courses);
 
-				// Remove the specified course from the student's courses
 				string updatedCourses;
-				istringstream ss(students);
+				istringstream ss(courses);
 				string course;
-				while (ss >> course) {
-					if (course != courseToWithdraw) {
+				while (ss >> course)
+				{
+					if (course != courseTowithdraw) {
 						updatedCourses += course + " ";
 					}
 				}
 
-				// Write back the updated information to the output file
 				outfile << rollnumFromFile << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
 				outfile << "\t\t" << updatedCourses << endl;
 				continue;
 			}
+
 			outfile << line << endl;
 		}
+
 		file.close();
 		outfile.close();
 
 		// Remove the original file and rename the temp file
-		if (studentFound) {
+		if (studentfound) {
 			if (remove("jav.txt") != 0) {
 				cout << "Error in deleting the file" << endl;
 			}
@@ -480,6 +483,7 @@ public:
 			}
 			else {
 				cout << "Course withdrawn successfully." << endl;
+				display1("jav.txt");
 			}
 		}
 		else {
@@ -487,8 +491,6 @@ public:
 			remove("tempfile.txt"); // Delete the temporary file
 		}
 	}
-
-
 
 	void attendance()
 	{
@@ -823,10 +825,10 @@ public:
 			if (code == ccode)
 			{
 				courseFound = true;
-				//	string credits, capacity, name, inst, existingstudents, students;
+				
 				string existingstudents;
 				c >> credits >> capacity >> name >> inst;
-				c >> ws; // Skip whitespaces
+				c >> ws;    // Skip whitespaces
 				getline(c, existingstudents);
 				string students;
 				// Remove the specified roll numbers from the existing students
@@ -839,7 +841,7 @@ public:
 				}
 				// Write back the updated information to the output file
 				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << name << "\t\t" << inst;
-				outfile << "\t" << students << endl;
+				outfile << "\t\t" << students << endl;
 				continue;
 			}
 
@@ -983,8 +985,6 @@ public:
 						rhs.display2("c.txt");
 					}
 
-
-
 					else if (k2 == 5)
 					{
 						cout << "exiting course registration" << endl;
@@ -1064,9 +1064,9 @@ public:
 					}
 					else if (k3 == 2)
 					{
-						//rhs.display1("jav.txt");
-						//obj.withdraw();
-						//rhs.display1("jav.txt");
+						obj.display1("jav.txt");
+						obj.withdraw();
+						obj.display1("jav.txt");
 
 					}
 				}

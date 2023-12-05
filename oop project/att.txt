@@ -2,7 +2,7 @@
 rollnum		present		absent		total		percent
 
 
-5200		13		7		20		65
+5200		2		8		10		20
 5565		0		0		20		0
 6661		0		0		20		0
 6652		0		0		20		0

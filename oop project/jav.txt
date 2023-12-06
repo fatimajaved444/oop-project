@@ -1,14 +1,13 @@
 
-rollnum		contact		age		name				courses		
-
-5200		100001		18		amnaamjaad			 dld
-5200		100001		18		amna amjaad			decpsdld 		
-5565		200002		19		muhammad 			
-6661		300003		24		abdul wahab			
-6652		400004		22		fatima javed			 
-6846		500005		20		simal butt			
-7070		600006		18		ahmed akbar			
-7500		700007		19		azlan malik		
-8200		800008		20		nimra fahad		
-8882		900009		18		fahadyousaf			dld
-8882		900009		18		fahad yousaf			dld de 
+rollnum		contact		age		name				courses	
+	
+5200		100001		18		amna_amjaad			oop  dld  
+5565		200002		19		muhammad ali 			
+6661		300003		24		abdul_wahab			oop
+6652		400004		22		fatima_javed			dldde 
+6846		500005		20		simal_butt			
+7070		600006		18		ahmed_akbar			
+7500		700007		19		azlan_malik		
+8200		800008		20		nimra_fahad				
+8882		900009		18		fahad_yousaf			dld de 
+1212		123123		12		maryam_ali			oop  de  

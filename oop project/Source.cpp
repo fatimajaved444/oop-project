@@ -15,6 +15,7 @@ protected:
 	string* rcourses;// = new string[max];///////////////////////
 	int max = 8;
 
+
 	int present;
 	int absent;
 	int total;
@@ -54,7 +55,7 @@ public:
 	}
 	void addstudent()
 	{
-		//int numofst = 10;
+		int numofst = 10;
 		const int size = 50;
 		int studentarray[size] = {5200,5565,6661,6652,6846,7070,7500,8200,8882};
 
@@ -91,7 +92,7 @@ public:
 				cin >> age;
 				/*cout << "courses: ";
 				cin >> courses;*/
-				studentarray[numofst] = rollnum;
+				//studentarray[numofst] = rollnum;
 				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
 				numofst++;
 				outfile.close();
@@ -132,6 +133,68 @@ public:
 			cout << "File not open";
 		}
 	}
+	//void add()
+	//{
+	//	int r;
+	//	cout << "Enter the rollnum to add" << endl;
+	//	cin >> r;
+
+	//	ifstream file("jav.txt");
+	//	if (!file.is_open())
+	//	{
+	//		cout << "File not opened" << endl;
+	//		return;
+	//	}
+
+	//	ofstream outfile("tempfile.txt");
+	//	if (!outfile.is_open())
+	//	{
+	//		cout << "File not opened" << endl;
+	//		file.close();
+	//		return;
+	//	}
+
+	//	bool b = false;
+	//	string line;
+
+	//	while (getline(file, line))
+	//	{
+	//		istringstream c(line);
+	//		int r1;
+	//		c >> r1;
+
+	//		if (r1 == r)
+	//		{
+	//			b = true;
+	//			cout << "student with rollnum " << r << " already exist" << endl;
+	//			break;
+	//		}
+	//		outfile << line << endl;
+	//	}
+
+	//	file.close();
+	//	outfile.close();
+
+	//	if (b)
+	//	{
+	//		if (remove("jav.txt") != 0)
+	//		{
+	//			cout << "error in deleting the file" << endl;
+	//		}
+	//		if (rename("tempfile.txt", "jav.txt") != 0)
+	//		{
+	//			cout << "error in renaming the file" << endl;
+	//		}
+	//		
+	//	}
+	//	else
+	//	{
+	//		cout << "Roll number not found" << endl;
+	//		remove("tempfile.txt");                           // Delete the temporary file
+	//	}
+	//}
+	//
+
 
 	void removestudents()
 	{
@@ -302,20 +365,17 @@ public:
 	}
 	void registeration()
 	{
-		//const int max = 8;
 		int r;
 		cout << "Enter rollnum for course registration: " << endl;
 		cin >> r;
 		const int cnum = 8;
-
-		string c[cnum] = { "oop","discrete","coal","data","cps","linear","dld","de" };
-		rcourses = new string[max];
+		string c[cnum] = { "oop","discrrete","coal","data","cps","linear","dld","de" };
+	//	string a[8] = {};
 
 		ifstream file("jav.txt");
 		if (!file.is_open())
 		{
 			cout << "File not opened" << endl;
-			delete[]rcourses;
 			return;
 		}
 
@@ -324,7 +384,6 @@ public:
 		{
 			cout << "File not opened" << endl;
 			file.close();
-			delete[]rcourses;
 			return;
 		}
 
@@ -334,24 +393,22 @@ public:
 		cout << "Enter the number of courses: " << endl;
 		cin >> num;
 
-		cout << "Enter the courses: " << endl;
+		cout << "Enter the courses separated by spaces: " << endl;
 		string courses;
-		for (int i = 0; i < num && i < max; i++)
+		for (int i = 0; i < num; i++)
 		{
 			string course;
 			cin >> course;
-			//getline(cin, course);
 			if (courseavailable(course, c, cnum))
 			{
-				rcourses[i] = course;
-
+				courses += course + "  ";
+				//a[i] = courses;
 			}
 			else
 			{
 				cout << "invalid course" << endl;
 				file.close();
 				outfile.close();
-				//delete[]rcourses;
 				remove("tempfile.txt");
 				return;
 			}
@@ -366,18 +423,18 @@ public:
 			{
 				b = true;
 				rollnum = r;
-				c >> contact >> age;// >> name;
-				getline(c >> ws, name);
+				c >> contact >> age >> name;
 
 				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
-				outfile << "  ";
-				for (int i = 0; i < num; i++)
-				{
-					outfile << rcourses[i] << " ";
-				}
-				outfile << endl;
+				outfile << "\t\t\t" << courses << endl;
+
 				continue;
 			}
+			else
+			{
+				cout << "rollnum not found" << endl;
+			}
+
 			outfile << line << endl;
 		}
 
@@ -406,11 +463,8 @@ public:
 			cout << "Roll number not found" << endl;
 			remove("tempfile.txt"); // Delete the temporary file
 		}
-		delete[]rcourses;
 	}
 
-
-	
 
 	void withdraw() {
 		int r;

@@ -470,6 +470,84 @@ public:
 		delete[]rcourses;
 	}
 
+	void withdraw() {
+		int r;
+		cout << "Enter roll number: " << endl;
+		cin >> r;
+
+		ifstream file("jav.txt");
+		if (!file.is_open()) {
+			cout << "File not opened" << endl;
+			return;
+		}
+
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open()) {
+			cout << "File not opened" << endl;
+			file.close();
+			return;
+		}
+
+		bool studentfound = false;
+		string line;
+
+		cout << "Enter the course to withdraw: " << endl;
+		string withdraw;
+		cin >> withdraw;
+
+		while (getline(file, line)) {
+			istringstream c(line);
+			int rollnumFromFile;
+			c >> rollnumFromFile;
+
+			if (rollnumFromFile == r) {
+				studentfound = true;
+				string students;
+				c >> contact >> age >> name;
+				c >> ws; // Skip whitespaces
+				getline(c, students);
+
+				// Remove the specified course from the student's courses
+				string updatedcourses;
+				istringstream ss(students);
+				string course;
+				while (ss >> course) {
+					if (course != withdraw) {
+						updatedcourses += course + " ";
+					}
+				}
+
+				// Write back the updated information to the output file
+				outfile << rollnumFromFile << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
+				outfile << "\t\t\t" << updatedcourses << endl;
+				continue;
+			}
+
+			outfile << line << endl;
+		}
+
+		file.close();
+		outfile.close();
+
+		// Remove the original file and rename the temp file
+		if (studentfound) {
+			if (remove("jav.txt") != 0) {
+				cout << "Error in deleting the file" << endl;
+			}
+
+			if (rename("tempfile.txt", "jav.txt") != 0) {
+				cout << "Error in renaming the file" << endl;
+			}
+			else {
+				cout << "Course withdrawn successfully." << endl;
+			}
+		}
+		else {
+			cout << "Student not found" << endl;
+			remove("tempfile.txt"); // Delete the temporary file
+		}
+	}
+
 	void attendance()
 	{
 

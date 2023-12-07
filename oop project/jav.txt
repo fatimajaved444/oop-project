@@ -1,13 +1,11 @@
-
 rollnum		contact		age		name				courses	
 	
-5200		100001		18		amna_amjaad			oop data dld coal 
+5200		100001		18		amna_amjaad			oop dld cps		
 5565		200002		19		muhammad ali 			
 6661		300003		24		abdul_wahab			oop
-6652		400004		22		fatima_javed			dldde 
+6652		400004		22		fatima_javed			dld de 
 6846		500005		20		simal_butt			
 7070		600006		18		ahmed_akbar			
-7500		700007		19		azlan_malik		
+7500		700007		19		azlan_malik			
 8200		800008		20		nimra_fahad				
 8882		900009		18		fahad_yousaf			dld de 
-1212		122343		22		maryam_aly			oop cps dld 

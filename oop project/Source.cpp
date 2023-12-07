@@ -53,55 +53,7 @@ public:
 	{
 		delete[]rcourses;
 	}
-	void addstudent()
-	{
-		int numofst = 10;
-		const int size = 50;
-		int studentarray[size] = {5200,5565,6661,6652,6846,7070,7500,8200,8882};
 
-		ofstream outfile("jav.txt", ios::app);
-		{
-			if (!outfile.is_open())
-			{
-				cout << "File not opened\n";
-			}
-			cout << "enter students detail: " << endl;
-			cin.ignore();
-			cout << "name: ";
-			getline(cin, name);
-
-			bool check = false;
-			cout << "rollnum: ";
-			cin >> rollnum;
-
-			for (int i = 0; i < numofst;i++)
-			{
-				if (rollnum==studentarray[i] )
-				{
-					cout << "rollnum already existed" << endl;
-					check = true;
-					break;
-				}
-			}
-			if (!check)
-			{
-				//studentarray[50]={}
-				cout << "contact: ";
-				cin >> contact;
-				cout << "age: ";
-				cin >> age;
-				/*cout << "courses: ";
-				cin >> courses;*/
-				//studentarray[numofst] = rollnum;
-				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
-				numofst++;
-				outfile.close();
-
-			}
-			
-		}
-		
-	}
 
 	void display1(const string& temp) {
 		cout << endl << endl << "---------------- File Contents --------------------------" << endl << endl;
@@ -133,67 +85,74 @@ public:
 			cout << "File not open";
 		}
 	}
-	//void add()
-	//{
-	//	int r;
-	//	cout << "Enter the rollnum to add" << endl;
-	//	cin >> r;
 
-	//	ifstream file("jav.txt");
-	//	if (!file.is_open())
-	//	{
-	//		cout << "File not opened" << endl;
-	//		return;
-	//	}
+	void addstudent()
+	{
+		int rollnum;
+		cout << "Enter the roll number: ";
+		cin >> rollnum;
 
-	//	ofstream outfile("tempfile.txt");
-	//	if (!outfile.is_open())
-	//	{
-	//		cout << "File not opened" << endl;
-	//		file.close();
-	//		return;
-	//	}
+		// Check if the roll number already exists
+		ifstream checkfile("jav.txt");
+		if (checkfile.is_open())
+		{
+			string line;
+			while (getline(checkfile, line))
+			{
+				istringstream iss(line);
+				int existingRoll;
+				iss >> existingRoll;
 
-	//	bool b = false;
-	//	string line;
+				if (existingRoll == rollnum)
+				{
+					cout << "Error: Roll number already exists." << endl;
+					checkfile.close();
+					return;
+				}
+			}
+			checkfile.close();
+		}
+		else
+		{
+			cout << "Error: Unable to open file." << endl;
+			return;
+		}
 
-	//	while (getline(file, line))
-	//	{
-	//		istringstream c(line);
-	//		int r1;
-	//		c >> r1;
+		// Roll number is unique, proceed to add student
+		ofstream file("jav.txt", ios::app);
+		if (file.is_open())
+		{
+			string name, courses;
+			int age, contact;
 
-	//		if (r1 == r)
-	//		{
-	//			b = true;
-	//			cout << "student with rollnum " << r << " already exist" << endl;
-	//			break;
-	//		}
-	//		outfile << line << endl;
-	//	}
+			cout << "Enter name: ";
+			cin.ignore();			 // Clear the newline character from the input buffer
+			getline(cin, name);
 
-	//	file.close();
-	//	outfile.close();
+			cout << "Enter contact: ";
+			cin >> contact;
 
-	//	if (b)
-	//	{
-	//		if (remove("jav.txt") != 0)
-	//		{
-	//			cout << "error in deleting the file" << endl;
-	//		}
-	//		if (rename("tempfile.txt", "jav.txt") != 0)
-	//		{
-	//			cout << "error in renaming the file" << endl;
-	//		}
-	//		
-	//	}
-	//	else
-	//	{
-	//		cout << "Roll number not found" << endl;
-	//		remove("tempfile.txt");                           // Delete the temporary file
-	//	}
-	//}
-	//
+			cout << "Enter age: ";
+			cin >> age;
+
+
+
+			// Add the new student to the file
+			file << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
+			file.close();
+
+			cout << "Student added successfully." << endl;
+			display1("jav.txt");
+		}
+		else
+		{
+			cout << "Error: Unable to open file for writing." << endl;
+		}
+	}
+
+	
+
+
 
 
 	void removestudents()

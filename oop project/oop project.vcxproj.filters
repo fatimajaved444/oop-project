@@ -27,8 +27,5 @@
     <ClCompile Include="new.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="check.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

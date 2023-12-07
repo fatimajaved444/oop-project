@@ -332,6 +332,7 @@ public:
 	//	}
 	//}
 
+
 	bool courseavailable(const string& course, const string* c, const int& cnum)
 	{
 			
@@ -488,10 +489,29 @@ public:
 				c >> ws; // Skip whitespaces
 				getline(c, students);
 
-				// Remove the specified course from the student's courses
-				string updatedcourses;
+				// Check if the student is registered for the course to be withdrawn
 				istringstream ss(students);
 				string course;
+				bool courseFound = false;
+				while (ss >> course) {
+					if (course == withdraw) {
+						courseFound = true;
+						break;
+					}
+				}
+
+				if (!courseFound) {
+					cout << "Error: Student with roll number " << r << " is not registered for course " << withdraw << endl;
+					file.close();
+					outfile.close();
+					remove("tempfile.txt"); // Delete the temporary file
+					return;
+				}
+
+				// Remove the specified course from the student's courses
+				string updatedcourses;
+				ss.clear(); // Clear the state of stringstream
+				ss.seekg(0); // Reset the stringstream position to the beginning
 				while (ss >> course) {
 					if (course != withdraw) {
 						updatedcourses += course + " ";
@@ -529,6 +549,11 @@ public:
 		}
 	}
 
+
+
+
+
+		
 	void attendance()
 	{
 		int r;
@@ -926,8 +951,6 @@ public:
 			remove("tempfile.txt"); // Delete the temporary file
 			return;
 		}
-
-
 
 		while (getline(file, line)) {
 			istringstream c(line);

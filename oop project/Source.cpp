@@ -149,12 +149,6 @@ public:
 			cout << "Error: Unable to open file for writing." << endl;
 		}
 	}
-
-	
-
-
-
-
 	void removestudents()
 	{
 		int r;
@@ -509,7 +503,6 @@ public:
 
 	void attendance()
 	{
-
 		int r;
 		cout << "Enter the rollnum to mark attendance" << endl;
 		cin >> r;
@@ -719,29 +712,31 @@ protected:
 
 	string students;
 public:
+	
 	void addstudentincourses()
 	{
 		int ccode;
-		cout << "Enter coursecode: " << endl;
+		cout << "Enter course code: " << endl;
 		cin >> ccode;
 
 		ifstream file("c.txt");
 		if (!file.is_open())
 		{
-			cout << "File not opened" << endl;
+			cout << "Error: Unable to open file" << endl;
 			return;
 		}
 
 		ofstream outfile("tempfile.txt");
 		if (!outfile.is_open())
 		{
-			cout << "File not opened" << endl;
+			cout << "Error: Unable to open temporary file" << endl;
 			file.close();
 			return;
 		}
 
 		bool b = false;
 		string line;
+
 		int num;
 		cout << "Enter the number of students: " << endl;
 		cin >> num;
@@ -752,6 +747,44 @@ public:
 		{
 			int rn;
 			cin >> rn;
+
+			ifstream checkfile("jav.txt");
+			if (checkfile.is_open())
+			{
+				bool rollnumberexists = false;
+				string line;
+				while (getline(checkfile, line))
+				{
+					istringstream iss(line);
+					int existingRoll;
+					iss >> existingRoll;
+
+					if (existingRoll == rn)
+					{
+						rollnumberexists = true;
+						break;
+					}
+				}
+				checkfile.close();
+
+				if (!rollnumberexists)
+				{
+					cout << "Error: Roll number " << rn << " doesn't exist in txt file." << endl;
+					file.close();
+					outfile.close();
+					remove("tempfile.txt"); // Delete the temporary file
+					return;
+				}
+			}
+			else
+			{
+				cout << "Error: Unable to open jav.txt" << endl;
+				file.close();
+				outfile.close();
+				remove("tempfile.txt"); // Delete the temporary file
+				return;
+			}
+
 			students += to_string(rn) + " ";
 		}
 
@@ -764,8 +797,8 @@ public:
 			if (code == ccode)
 			{
 				b = true;
-				//int credits, capacity;
-				string  existingstudents;
+			
+				string existingstudents;
 
 				c >> credits >> capacity >> name >> inst;
 				c >> ws; // Skip whitespaces
@@ -1081,7 +1114,7 @@ public:
 					else if (k3 == 2)
 					{
 						obj.display1("jav.txt");
-						//obj.withdraw();
+						obj.withdraw();
 						obj.display1("jav.txt");
 
 					}
@@ -1090,6 +1123,7 @@ public:
 		}
 	}
 };
+
 int main()
 {
 	student rhs;

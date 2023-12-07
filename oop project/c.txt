@@ -1,11 +1,10 @@
 code		credits		capacity	name		instructor	students
 
-10		3		50		oop		hina		8882 6661 6652 2222 
-20		3		50		dis		uzma		6846 2222 3333 
+10		3		50		oop		hina		5200 8882  6652 
+20		3		50		dis		uzma		5565
 30		3		50		coal		aleena		8200 8882
 40		3		50		data		sukhan		6661	
 50		3		50		cps		gulshan		5565 	 
-60		3		50		linear		fraz		6652 6846 2345 1234 
+60		3		50		linear		fraz		6652 6846  
 70		3		50		dld		mamoona		7500
-80		3		50		de		mazhar		1122
-
+80		3		50		de		mazhar		6652

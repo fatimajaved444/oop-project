@@ -1,6 +1,6 @@
 code		credits		capacity	name		instructor	students
 
-10		3		50		oop		hina		5200 8882  6652 
+10		3		50		oop		hina		5200 8882 
 20		3		50		dis		uzma		5565
 30		3		50		coal		aleena		8200 8882
 40		3		50		data		sukhan		6661	

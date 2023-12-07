@@ -865,6 +865,44 @@ public:
 		int rn;
 
 		cin >> rn;
+		ifstream checkfile("jav.txt");
+		if (checkfile.is_open())
+		{
+			bool rollnumberexists = false;
+			string line;
+			while (getline(checkfile, line))
+			{
+				istringstream iss(line);
+				int existingRoll;
+				iss >> existingRoll;
+
+				if (existingRoll == rn)
+				{
+					rollnumberexists = true;
+					break;
+				}
+			}
+			checkfile.close();
+
+			if (!rollnumberexists)
+			{
+				cout << "Error: Roll number " << rn << " doesn't exist in file." << endl;
+				file.close();
+				outfile.close();
+				remove("tempfile.txt"); // Delete the temporary file
+				return;
+			}
+		}
+		else
+		{
+			cout << "Error: Unable to open jav.txt" << endl;
+			file.close();
+			outfile.close();
+			remove("tempfile.txt"); // Delete the temporary file
+			return;
+		}
+
+
 
 		while (getline(file, line)) {
 			istringstream c(line);
@@ -905,7 +943,7 @@ public:
 			if (remove("c.txt") != 0) {
 				cout << "Error in deleting the file" << endl;
 			}
-
+			
 			if (rename("tempfile.txt", "c.txt") != 0) {
 				cout << "Error in renaming the file" << endl;
 			}

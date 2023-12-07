@@ -1005,13 +1005,14 @@ public:
 		}
 	}
 };
-//
-//class validator :public student,public courses{
-//public:
-//
-//
-//
-//};
+
+class validator :public student,public courses{
+public:
+
+
+
+};
+
 
 
 class system1// :public student//public attendance

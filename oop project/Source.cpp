@@ -3,14 +3,12 @@
 #include<sstream>
 #include<string>
 using namespace std;
-
 class student {
 	
 protected:
 	string name;
 	int rollnum;
 	int contact;
-	//int courses;
 	int age;
 	string* rcourses;// = new string[max];///////////////////////
 	int max = 8;
@@ -23,7 +21,8 @@ protected:
 	int obtained;
 	int numofst = 9;
 	int maxst = 100;
-	//int* p;
+	
+
 public:
 	friend class attendance;
 	student()
@@ -142,7 +141,36 @@ public:
 			file.close();
 
 			cout << "Student added successfully." << endl;
-			display1("jav.txt");
+		//	display1("jav.txt");
+
+			// Now, add the roll number to att.txt
+			ofstream attFile("att.txt", ios::app);
+			if (attFile.is_open())
+			{
+				attFile << rollnum << "\t\t0\t\t0\t\t0\t\t0" << endl; // Assuming initial attendance details
+				attFile.close();
+				//cout << "Student added to att.txt successfully." << endl;
+			}
+			else
+			{
+				cout << "Error: Unable to open att.txt for writing." << endl;
+				// You might want to handle this error appropriately, such as removing the student from jav.txt
+			}
+
+			// Now, add the roll number to marks.txt
+			ofstream marksFile("marks.txt", ios::app);
+			if (marksFile.is_open())
+			{
+				marksFile << rollnum << "\t\t0\t\t0\t\t0" << endl; // Assuming initial attendance details
+				marksFile.close();
+				//cout << "Student added to att.txt successfully." << endl;
+			}
+			else
+			{
+				cout << "Error: Unable to open att.txt for writing." << endl;
+				// You might want to handle this error appropriately, such as removing the student from jav.txt
+			}
+
 		}
 		else
 		{
@@ -533,10 +561,7 @@ public:
 			{
 				b = true;
 				cout << "enter students detail: " << endl;
-				//cin.ignore();
-				//cout << "name: ";
-				//getline(cin, name);
-
+				
 				rollnum = r;                                           //keep rollnum same
 
 				cout << "total ";
@@ -556,7 +581,7 @@ public:
 					outfile << rollnum << "\t\t" << present << "\t\t" << absent << "\t\t" << total << "\t\t" << per << endl;
 					continue;
 				}
-
+				   
 				//per = (present / total) * 100;
 
 			}

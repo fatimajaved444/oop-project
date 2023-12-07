@@ -3,8 +3,11 @@
 #include<sstream>
 #include<string>
 using namespace std;
+
+class courses;
+
 class student {
-	
+	friend courses;
 protected:
 	string name;
 	int rollnum;
@@ -21,7 +24,14 @@ protected:
 	int obtained;
 	int numofst = 9;
 	int maxst = 100;
-	
+
+
+	int code;
+	string sname;
+	string inst;
+	int credits;
+	int capacity;
+	string students;
 
 public:
 	friend class attendance;
@@ -345,6 +355,7 @@ public:
 		}
 		return false;
 	}
+	
 	void registeration()
 	{
 		//const int max = 8;
@@ -551,9 +562,6 @@ public:
 
 
 
-
-
-		
 	void attendance()
 	{
 		int r;
@@ -752,14 +760,14 @@ public:
 
 };
 
+
 class courses :public student {
 protected:
 	int code;
-	string name;
+	string sname;
 	string inst;
 	int credits;
 	int capacity;
-
 	string students;
 public:
 	
@@ -850,11 +858,11 @@ public:
 			
 				string existingstudents;
 
-				c >> credits >> capacity >> name >> inst;
+				c >> credits >> capacity >> sname >> inst;
 				c >> ws; // Skip whitespaces
 				getline(c, existingstudents);
 
-				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << name << "\t\t" << inst;
+				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << sname << "\t\t" << inst;
 				outfile << "\t\t" << existingstudents << " " << students << endl;
 				continue;
 			}
@@ -1004,13 +1012,6 @@ public:
 			remove("tempfile.txt"); // Delete the temporary file
 		}
 	}
-};
-
-class validator :public student,public courses{
-public:
-
-
-
 };
 
 
@@ -1219,4 +1220,5 @@ int main()
 	object3.menu();
 
 	return 0;
+
 }

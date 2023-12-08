@@ -710,8 +710,7 @@ public:
 			if (courseavailable(courseid, c, cnum))
 			{
 				rcourses[i] = courseid;
-				newcourse = rcourses[i];
-
+				//newcourse = rcourses[i];
 			}
 			else
 			{
@@ -749,7 +748,6 @@ public:
 
 		file.close();
 		outfile.close();
-
 		if (b)
 		{
 			if (remove("jav.txt") != 0)
@@ -766,7 +764,6 @@ public:
 				cout << "Student with roll number " << r << " registered successfully." << endl;
 				display1("jav.txt");
 			}
-
 			const string coursefilename = "c.txt";
 			ifstream coursefile(coursefilename);
 			ofstream tempFile("temp_course.txt");
@@ -780,14 +777,14 @@ public:
 			while (getline(coursefile, line)) {
 				istringstream iss(line);
 			
-				iss >> sname;
+				iss >> code;
 
 				tempFile << line;
 
 				for (int i = 0; i < num; i++) 
 				{
 					
-					if (rcourses[i]==sname) {
+					if (rcourses[i]==code) {
 						tempFile << "  " << rollnum;
 						break;
 					}

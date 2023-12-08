@@ -13,7 +13,7 @@ protected:
 	int rollnum;
 	int contact;
 	int age;
-	string* rcourses;// = new string[max];///////////////////////
+	string* rcourses;
 	int max = 8;
 
 
@@ -657,14 +657,14 @@ public:
 
 class courses :public student {
 protected:
-	int code;
+	string code;
 	string sname;
 	string inst;
 	int credits;
 	int capacity;
 	string students;
 	string newcourse;
-	int newroll;
+	//int newroll;
 
 public:
 
@@ -673,7 +673,7 @@ public:
 		int r;
 		cout << "Enter rollnum for course registration: " << endl;
 		cin >> r;
-		newroll = r;
+	//	newroll = r;
 		const int cnum = 8;
 		string c[cnum] = { "cs1004","cs1005","cs1006","cs1007","ee1001","mt1002","ee1003","mt1008"};
 		rcourses = new string[max];
@@ -820,6 +820,7 @@ public:
 		delete[]rcourses;
 	}
 	
+	
 	void addstudentincourses()
 	{
 		string ccode;
@@ -849,50 +850,10 @@ public:
 		cin >> num;
 
 		cout << "Enter the roll numbers: " << endl;
-		string students;
+		int studentRolls[9];  // Use an array to store student roll numbers
 		for (int i = 0; i < num; i++)
 		{
-			int rn;
-			cin >> rn;
-
-			ifstream checkfile("jav.txt");
-			if (checkfile.is_open())
-			{
-				bool rollnumberexists = false;
-				string line;
-				while (getline(checkfile, line))
-				{
-					istringstream iss(line);
-					int existingRoll;
-					iss >> existingRoll;
-
-					if (existingRoll == rn)
-					{
-						rollnumberexists = true;
-						break;
-					}
-				}
-				checkfile.close();
-
-				if (!rollnumberexists)
-				{
-					cout << "Error: Roll number " << rn << " doesn't exist in txt file." << endl;
-					file.close();
-					outfile.close();
-					remove("tempfile.txt"); // Delete the temporary file
-					return;
-				}
-			}
-			else
-			{
-				cout << "Error: Unable to open jav.txt" << endl;
-				file.close();
-				outfile.close();
-				remove("tempfile.txt"); // Delete the temporary file
-				return;
-			}
-
-			students += to_string(rn) + " ";
+			cin >> studentRolls[i];  // Store the roll number in the array
 		}
 
 		while (getline(file, line))
@@ -904,15 +865,22 @@ public:
 			if (code == ccode)
 			{
 				b = true;
-			
-				string existingstudents;
 
+				string existingstudents;
 				c >> credits >> capacity >> sname >> inst;
 				c >> ws; // Skip whitespaces
 				getline(c, existingstudents);
 
 				outfile << code << "\t\t" << credits << "\t\t" << capacity << "\t\t" << sname << "\t\t" << inst;
-				outfile << "\t\t" << existingstudents << " " << students << endl;
+				outfile << "\t\t" << existingstudents;
+
+				// Append the new students
+				for (int i = 0; i < num; i++)
+				{
+					outfile << " " << studentRolls[i];
+				}
+
+				outfile << endl;
 				continue;
 			}
 
@@ -938,6 +906,49 @@ public:
 				cout << "Students added to the course successfully." << endl;
 				display2("c.txt");
 			}
+
+			const string stfilename = "jav.txt";
+			ifstream studentfile(stfilename);
+			ofstream tempFile("temp_sttxt");
+
+			if (!studentfile.is_open() || !tempFile.is_open()) {
+				cout << "Error: Unable to open student file or temporary file" << endl;
+				return;
+			}
+
+			while (getline(studentfile, line))
+			{
+				istringstream iss(line);
+
+				iss >> rollnum;
+
+				tempFile << line;
+
+				for (int i = 0; i < num; i++)
+				{
+					if (rollnum == studentRolls[i])
+					{
+						tempFile << " " << ccode;
+						break;
+					}
+				}
+				tempFile << endl;
+			}
+
+			studentfile.close();
+			tempFile.close();
+
+			if (remove(stfilename.c_str()) != 0) {
+				cout << "Error in deleting the course file" << endl;
+			}
+
+			if (rename("temp_sttxt", stfilename.c_str()) != 0) {
+				cout << "Error in renaming the temporary file" << endl;
+			}
+			else {
+				cout << "Course file updated successfully." << endl;
+				display1(stfilename);
+			}
 		}
 		else
 		{
@@ -945,6 +956,11 @@ public:
 			remove("tempfile.txt"); // Delete the temporary file
 		}
 	}
+
+
+
+
+
 
 	void removestudentfromcourses() {
 		int ccode;

@@ -706,8 +706,7 @@ public:
 		for (int i = 0; i < num && i < max; i++)
 		{
 			cin >> courseid;
-			//getline(cin, course);
-
+			
 			if (courseavailable(courseid, c, cnum))
 			{
 				rcourses[i] = courseid;
@@ -768,18 +767,17 @@ public:
 				display1("jav.txt");
 			}
 
-
-			const string courseFileName = "c.txt";
-			ifstream courseFile(courseFileName);
+			const string coursefilename = "c.txt";
+			ifstream coursefile(coursefilename);
 			ofstream tempFile("temp_course.txt");
 
-			if (!courseFile.is_open() || !tempFile.is_open()) {
+			if (!coursefile.is_open() || !tempFile.is_open()) {
 				cout << "Error: Unable to open course file or temporary file" << endl;
 				return;
 			}
 
 			string line;
-			while (getline(courseFile, line)) {
+			while (getline(coursefile, line)) {
 				istringstream iss(line);
 			
 				iss >> sname;
@@ -799,21 +797,20 @@ public:
 				tempFile << endl;
 			}
 
-			courseFile.close();
+			coursefile.close();
 			tempFile.close();
 
-			if (remove(courseFileName.c_str()) != 0) {
+			if (remove(coursefilename.c_str()) != 0) {
 				cout << "Error in deleting the course file" << endl;
 			}
 
-			if (rename("temp_course.txt", courseFileName.c_str()) != 0) {
+			if (rename("temp_course.txt", coursefilename.c_str()) != 0) {
 				cout << "Error in renaming the temporary file" << endl;
 			}
 			else {
 				cout << "Course file updated successfully." << endl;
-				display2(courseFileName);
+				display2(coursefilename);
 			}
-
 		}
 		else
 		{

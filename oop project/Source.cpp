@@ -95,58 +95,82 @@ public:
 
 	void addstudent()
 	{
+		int count = 0;
 		int rollnum;
 		cout << "Enter the roll number: ";
 		cin >> rollnum;
+		int rollnumcheck = rollnum;
 
-		// Check if the roll number already exists
-		ifstream checkfile("jav.txt");
-		if (checkfile.is_open())
+		//check for 4_digit rollnum
+		while (rollnumcheck != 0)
 		{
-			string line;
-			while (getline(checkfile, line))
-			{
-				istringstream iss(line);
-				int existingRoll;
-				iss >> existingRoll;
+			rollnumcheck = rollnumcheck / 10;
+			count++;
 
-				if (existingRoll == rollnum)
+		}
+		if (count == 4)
+		{
+			cout << "rollnumber is authenticated" << endl;
+
+			// Check if the roll number already exists
+			ifstream checkfile("jav.txt");
+			if (checkfile.is_open())
+			{
+				string line;
+				while (getline(checkfile, line))
 				{
-					cout << "Error: Roll number already exists." << endl;
-					checkfile.close();
-					return;
+					istringstream iss(line);
+					int existingRoll;
+					iss >> existingRoll;
+
+					if (existingRoll == rollnum)
+					{
+						cout << "Error: Roll number already exists." << endl;
+						checkfile.close();
+						return;
+					}
 				}
+				checkfile.close();
 			}
-			checkfile.close();
+			else
+			{
+				cout << "Error: Unable to open file." << endl;
+				return;
+			}
+
+			// Roll number is unique, proceed to add student
+			ofstream file("jav.txt", ios::app);
+			if (file.is_open())
+			{
+				string name, courses;
+				int age, contact;
+
+				cout << "Enter name: ";
+				cin.ignore();			 // Clear the newline character from the input buffer
+				getline(cin, name);
+
+				cout << "Enter contact: ";
+				cin >> contact;
+
+				cout << "Enter age: ";
+				cin >> age;
+
+				// Add the new student to the file
+				file << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
+				file.close();
+
+				cout << "Student added successfully." << endl;
+
+
+
+
 		}
 		else
 		{
-			cout << "Error: Unable to open file." << endl;
-			return;
+			cout << "rollnumber is not authentic not 4 digit " << endl;
 		}
 
-		// Roll number is unique, proceed to add student
-		ofstream file("jav.txt", ios::app);
-		if (file.is_open())
-		{
-			string name, courses;
-			int age, contact;
-
-			cout << "Enter name: ";
-			cin.ignore();			 // Clear the newline character from the input buffer
-			getline(cin, name);
-
-			cout << "Enter contact: ";
-			cin >> contact;
-
-			cout << "Enter age: ";
-			cin >> age;
-
-			// Add the new student to the file
-			file << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
-			file.close();
-
-			cout << "Student added successfully." << endl;
+	
 		//	display1("jav.txt");
 
 			// Now, add the roll number to att.txt

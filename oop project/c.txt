@@ -1,10 +1,10 @@
 code		credits		capacity	name		instructor	students
 
-cs1004		3		50		oop		hina		 7070
+cs1004		3		50		oop		hina		5200 6652 7070
 cs1005		3		50		dis		uzma		
 cs1006		3		50		coal		aleena		
 cs1007		3		50		data		sukhan		
-ee1001		3		50		cps		gulshan		5200 6652
-mt1002		3		50		linear		fraz		 
+ee1001		3		50		cps		gulshan		
+mt1002		3		50		linear		fraz		
 ee1003		3		50		dld		mamoona		
 mt1008		3		50		de		mazhar		

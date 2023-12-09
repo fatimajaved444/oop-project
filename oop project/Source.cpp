@@ -456,104 +456,6 @@ public:
 		return false;
 	}
 	
-	
-	void withdraw() {
-		int r;
-		cout << "Enter roll number: " << endl;
-		cin >> r;
-
-		ifstream file("jav.txt");
-		if (!file.is_open()) {
-			cout << "File not opened" << endl;
-			return;
-		}
-
-		ofstream outfile("tempfile.txt");
-		if (!outfile.is_open()) {
-			cout << "File not opened" << endl;
-			file.close();
-			return;
-		}
-
-		bool studentfound = false;
-		string line;
-
-		cout << "Enter the course to withdraw: " << endl;
-		string withdraw;
-		cin >> withdraw;
-
-		while (getline(file, line)) {
-			istringstream c(line);
-			int rollnumFromFile;
-			c >> rollnumFromFile;
-
-			if (rollnumFromFile == r) {
-				studentfound = true;
-				string students;
-				c >> contact >> age >> name;
-				c >> ws; // Skip whitespaces
-				getline(c, students);
-
-				// Check if the student is registered for the course to be withdrawn
-				istringstream ss(students);
-				string course;
-				bool courseFound = false;
-				while (ss >> course) {
-					if (course == withdraw) {
-						courseFound = true;
-						break;
-					}
-				}
-
-				if (!courseFound) {
-					cout << "Error: Student with roll number " << r << " is not registered for course " << withdraw << endl;
-					file.close();
-					outfile.close();
-					remove("tempfile.txt"); // Delete the temporary file
-					return;
-				}
-
-				// Remove the specified course from the student's courses
-				string updatedcourses;
-				ss.clear(); // Clear the state of stringstream
-				ss.seekg(0); // Reset the stringstream position to the beginning
-				while (ss >> course) {
-					if (course != withdraw) {
-						updatedcourses += course + " ";
-					}
-				}
-
-				// Write back the updated information to the output file
-				outfile << rollnumFromFile << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
-				outfile << "\t\t\t" << updatedcourses << endl;
-				continue;
-			}
-
-			outfile << line << endl;
-		}
-
-		file.close();
-		outfile.close();
-
-		// Remove the original file and rename the temp file
-		if (studentfound) {
-			if (remove("jav.txt") != 0) {
-				cout << "Error in deleting the file" << endl;
-			}
-
-			if (rename("tempfile.txt", "jav.txt") != 0) {
-				cout << "Error in renaming the file" << endl;
-			}
-			else {
-				cout << "Course withdrawn successfully." << endl;
-			}
-		}
-		else {
-			cout << "Student not found" << endl;
-			remove("tempfile.txt"); // Delete the temporary file
-		}
-	}
-
 	void attendance()
 	{
 		int r;
@@ -911,8 +813,7 @@ public:
 		}
 		delete[]rcourses;
 	}
-	
-	
+
 	void addstudentincourses()
 	{
 		string ccode;
@@ -1049,8 +950,181 @@ public:
 		}
 	}
 
+	void withdraw() {
+		int r;
+		cout << "Enter roll number: " << endl;
+		cin >> r;
+
+		ifstream file("jav.txt");
+		if (!file.is_open()) {
+			cout << "File not opened" << endl;
+			return;
+		}
+
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open()) {
+			cout << "File not opened" << endl;
+			file.close();
+			return;
+		}
+
+		bool studentfound = false;
+		string line;
+
+		cout << "Enter the course to withdraw: " << endl;
+		string withdraw;
+		cin >> withdraw;
+
+		while (getline(file, line)) {
+			istringstream c(line);
+			int rollnumFromFile;
+			c >> rollnumFromFile;
+
+			if (rollnumFromFile == r) {
+				studentfound = true;
+				string students;
+				c >> contact >> age >> name;
+				c >> ws; // Skip whitespaces
+				getline(c, students);
+
+				// Check if the student is registered for the course to be withdrawn
+				istringstream ss(students);
+				string course;
+				bool courseFound = false;
+				while (ss >> course) {
+					if (course == withdraw) {
+						courseFound = true;
+						break;
+					}
+				}
+
+				if (!courseFound) {
+					cout << "Error: Student with roll number " << r << " is not registered for course " << withdraw << endl;
+					file.close();
+					outfile.close();
+					remove("tempfile.txt"); // Delete the temporary file
+					return;
+				}
+
+				// Remove the specified course from the student's courses
+				string updatedcourses;
+				ss.clear(); // Clear the state of stringstream
+				ss.seekg(0); // Reset the stringstream position to the beginning
+				while (ss >> course) {
+					if (course != withdraw) {
+						updatedcourses += course + " ";
+					}
+				}
+
+				// Write back the updated information to the output file
+				outfile << rollnumFromFile << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
+				outfile << "\t\t\t" << updatedcourses << endl;
+
+				continue;
+			}
+
+			outfile << line << endl;
+		}
+
+
+		file.close();
+		outfile.close();
+
+		// Remove the original file and rename the temp file
+		if (studentfound) {
+			if (remove("jav.txt") != 0) {
+				cout << "Error in deleting the file" << endl;
+			}
+
+			if (rename("tempfile.txt", "jav.txt") != 0) {
+				cout << "Error in renaming the file" << endl;
+			}
+			else {
+				display1("jav.txt");
+
+				cout << "Course withdrawn successfully." << endl;
+			}
+
+
+			const string coursefilename = "c.txt";
+			ifstream coursefile(coursefilename);
+			ofstream tempFile("temp_course.txt");
+
+			if (!coursefile.is_open() || !tempFile.is_open()) {
+				cout << "Error: Unable to open course file or temporary file" << endl;
+				return;
+			}
+
+		//	string courseLine;  // Rename 'line' to 'courseLine'
+		//	while (getline(coursefile, courseLine)) {
+		//		istringstream iss(courseLine);
+
+		//		//string code;  // Declare 'code' here
+		//		//if (!(iss >> code)) 
+		//		//{
+		//		//	// Handle the case where reading the course code fails
+		//		//	cout << "Error: Unable to read course code." << endl;
+		//		//	break;
+		//		//}
+		//		iss >> code;
+
+		//		tempFile << line;
+
+
+		//		if (withdraw == code) {
+		//			// If the course is found, remove the student's roll number from the line
+		//			string students;
+		//			iss >> ws; // Skip whitespaces
+
+		//			// Manually update the student list
+		//			string updatedStudents;
+		//			string rollnumStr;
+
+		//			while (iss >> rollnumStr) {
+		//				int rollnumInCourse = stoi(rollnumStr);
+		//				if (rollnumInCourse != r) {
+		//					updatedStudents += " " + to_string(rollnumInCourse);
+		//				}
+		//			}
+		//			// Update the line with the modified student list
+		//			tempFile << updatedStudents;
+		//		}
+		//	/*	else
+		//		{
+		//			cout << withdraw << "     " << code << endl;
+		//		}*/
+
+		//		tempFile << endl;  // Add a newline after each line (including the original or modified line)
+		//	}
+		//	coursefile.close();
+		//	tempFile.close();
+
+		//	if (remove(coursefilename.c_str()) != 0) {
+		//		cout << "Error in deleting the course file" << endl;
+		//	}
+
+		//	if (rename("temp_course.txt", coursefilename.c_str()) != 0) {
+		//		cout << "Error in renaming the temporary file" << endl;
+		//	}
+		//	else {
+		//		cout << "Course file updated successfully." << endl;
+		//		display2(coursefilename);
+		//	}
+
+		}
+		else {
+			cout << "Student not found" << endl;
+			remove("tempfile.txt"); // Delete the temporary file
+		}
+	}
+
+
+
+
+
+
 	void removestudentfromcourses() {
-		int ccode;
+		string ccode;
 		cout << "Enter course code: " << endl;
 		cin >> ccode;
 
@@ -1352,8 +1426,7 @@ public:
 					else if (k3 == 2)
 					{
 						obj.display1("jav.txt");
-						obj.withdraw();
-						obj.display1("jav.txt");
+						rhs.withdraw();
 					}
 				}
 			}

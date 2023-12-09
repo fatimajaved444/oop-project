@@ -16,15 +16,13 @@ protected:
 	string* rcourses;
 	int max = 8;
 
-
 	int present;
 	int absent;
 	int total;
 	float per;
 	int obtained;
-	int numofst = 9;
+	int numofst = 0;
 	int maxst = 100;
-
 
 	int code;
 	string sname;
@@ -144,8 +142,6 @@ public:
 			cout << "Enter age: ";
 			cin >> age;
 
-
-
 			// Add the new student to the file
 			file << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
 			file.close();
@@ -207,7 +203,6 @@ public:
 			file.close();
 			return;
 		}
-
 		bool b = false;
 		string line;
 
@@ -244,13 +239,51 @@ public:
 				cout << "student with roll number " << r << " removed successfully." << endl;
 				display1("jav.txt");
 			}
+
+			// Remove from att.txt
+			ifstream attfile("att.txt");
+			ofstream tempattfile("temp_attfile.txt");
+
+			if (!attfile.is_open() || !tempattfile.is_open())
+			{
+				cout << "Error: Unable to open att.txt or temporary attfile" << endl;
+				return;
+			}
+
+			while (getline(attfile, line))
+			{
+				istringstream c(line);
+				int r1;
+				c >> r1;
+
+				if (r1 != r)
+				{
+					tempattfile << line << endl;
+				}
+			}
+			attfile.close();
+			tempattfile.close();
+
+			if (remove("att.txt") != 0)
+			{
+				cout << "Error: Unable to delete att.txt" << endl;
+			}
+
+			if (rename("temp_attfile.txt", "att.txt") != 0)
+			{
+				cout << "Error: Unable to rename temp_attfile.txt to att.txt" << endl;
+			}
+			else
+			{
+				cout << "Student with roll number " << r << " removed successfully from att.txt." << endl;
+				display1("att.txt");
+			}
 		}
+
 		else
 		{
 			cout << "Roll number not found" << endl;
 			remove("tempfile.txt");   // Delete the temporary file
-
-
 		}
 	}
 
@@ -664,8 +697,6 @@ protected:
 	int capacity;
 	string students;
 	string newcourse;
-	//int newroll;
-
 public:
 
 	void registeration()
@@ -953,11 +984,6 @@ public:
 			remove("tempfile.txt"); // Delete the temporary file
 		}
 	}
-
-
-
-
-
 
 	void removestudentfromcourses() {
 		int ccode;
@@ -1264,7 +1290,6 @@ public:
 						obj.display1("jav.txt");
 						obj.withdraw();
 						obj.display1("jav.txt");
-
 					}
 				}
 			}

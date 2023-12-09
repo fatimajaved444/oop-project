@@ -1,8 +1,6 @@
 rollnum		contact		age		name				courses	
 	
 5200		100001		18		amna_amjaad			
-5565		200002		19		muhammad ali 			
-6661		300003		24		abdul_wahab			
 6652		400004		22		fatima_javed			 
 6846		500005		20		simal_butt			
 7070		600006		18		ahmed_akbar			

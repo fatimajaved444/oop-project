@@ -276,7 +276,47 @@ public:
 			else
 			{
 				cout << "Student with roll number " << r << " removed successfully from att.txt." << endl;
-				display1("att.txt");
+				//display1("att.txt");
+			}
+
+
+			// Remove from marks.txt
+			ifstream marksfile("marks.txt");
+			ofstream tempmarksfile("temp_marksfile.txt");
+
+			if (!marksfile.is_open() || !tempmarksfile.is_open())
+			{
+				cout << "Error: Unable to open att.txt or temporary attfile" << endl;
+				return;
+			}
+
+			while (getline(marksfile, line))
+			{
+				istringstream c(line);
+				int r1;
+				c >> r1;
+
+				if (r1 != r)
+				{
+					tempmarksfile << line << endl;
+				}
+			}
+			marksfile.close();
+			tempmarksfile.close();
+
+			if (remove("marks.txt") != 0)
+			{
+				cout << "Error: Unable to delete txt" << endl;
+			}
+
+			if (rename("temp_marksfile.txt", "marks.txt") != 0)
+			{
+				cout << "Error: Unable to rename temp_marksfile.txt to att.txt" << endl;
+			}
+			else
+			{
+				cout << "Student with roll number " << r << " removed successfully from marks.txt." << endl;
+				//display1("marks.txt");
 			}
 		}
 

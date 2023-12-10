@@ -1479,7 +1479,7 @@ int main()
 	text1.setCharacterSize(20);
 	text1.setFillColor(sf::Color::Blue);
 	text1.setPosition(370, 130);
-	text1.setString("Academic Portal");
+	text1.setString("Academic Portal\n  FAST NU LHR");
 
 	text2.setFont(f);
 	text2.setCharacterSize(20);
@@ -1549,8 +1549,6 @@ int main()
 	rectangle3.setFillColor(sf::Color::White); // Set background color
 	rectangle3.setPosition(320.f, 500.f); // Set the position as per your requirement
 
-
-
 	text7.setFont(f);
 	text7.setCharacterSize(20);
 	text7.setFillColor(sf::Color::Black);
@@ -1574,9 +1572,7 @@ int main()
 	text10.setCharacterSize(15);
 	text10.setFillColor(sf::Color::Black);
 	text10.setPosition(300, 620);
-	text10.setString("=>> Sign in to enter thhe roll number");
-
-
+	text10.setString("=>> Sign in to enter the roll number\n=>> Press SPACE or click on SIGN IN to continue");
 
 
 	// define a circle shape and scale it for an ellipse effect
@@ -1596,7 +1592,6 @@ int main()
 	t.setString("Sign In");
 
 
-
 	// run the program as long as the window is open
 	while (window.isOpen())
 	{
@@ -1606,7 +1601,22 @@ int main()
 		{
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+			}
+			else if (event.type == sf::Event::TextEntered)
+			{
+				if (event.text.unicode == 32)
+				{
+					window.close();
+				}
+			}
+
+			else if (sf::Mouse::getPosition(window).x > ellipse.getGlobalBounds().left && sf::Mouse::getPosition(window).x< ellipse.getGlobalBounds().left + ellipse.getGlobalBounds().width && sf::Mouse::getPosition(window).y
+			>ellipse.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (ellipse.getGlobalBounds().top + ellipse.getGlobalBounds().height) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				window.close();
+			}
 		}
 		// clear the window with black color
 		window.clear(sf::Color::White);

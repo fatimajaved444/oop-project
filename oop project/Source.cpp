@@ -4,7 +4,6 @@
 #include<string>
 #include <SFML/Graphics.hpp>
 
-
 using namespace std;
 
 class courses;
@@ -1462,8 +1461,19 @@ public:
 
 int main()
 {
+	student rhs;
+	sf::Font f;
+	f.loadFromFile("new.ttf");
+
 	// create the window
-	sf::RenderWindow window(sf::VideoMode(1300, 700), "FLEX");
+	sf::RenderWindow window(sf::VideoMode(1300, 700), "Flex");
+
+	sf::Text text;
+	text.setFont(f);
+	text.setCharacterSize(100);
+	text.setFillColor(sf::Color::Blue);
+	text.setPosition(500, 10);
+	text.setString("Flex");
 
 	// run the program as long as the window is open
 	while (window.isOpen())
@@ -1482,9 +1492,10 @@ int main()
 
 		// draw everything here...
 		// window.draw(...);
-
+		window.draw(text);
 		// end the current frame
 		window.display();
+
 	}
 
 
@@ -1492,10 +1503,6 @@ int main()
 
 
 
-
-
-
-	student rhs;
 	system1 object3;
 	object3.menu();
 

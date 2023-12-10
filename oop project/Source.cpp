@@ -1465,49 +1465,73 @@ int main()
 	f.loadFromFile("new.ttf");
 
 	// create the window
-	sf::RenderWindow window(sf::VideoMode(1300, 700), "Flex");
+	sf::RenderWindow window(sf::VideoMode(900, 800), "Flex");
 
-	sf::Text text, text1, text2, text3;
+	sf::Text text, text1, text2, text3,text4,text5,text6,text7;
 	text.setFont(f);
 	text.setCharacterSize(100);
 	text.setFillColor(sf::Color::Blue);
-	text.setPosition(500, 10);
+	text.setPosition(350, 10);
 	text.setString("Flex");
 	text.setStyle(sf::Text::Underlined);
 
 	text1.setFont(f);
 	text1.setCharacterSize(20);
 	text1.setFillColor(sf::Color::Blue);
-	text1.setPosition(520, 130);
+	text1.setPosition(370, 130);
 	text1.setString("Academic Portal");
 
 	text2.setFont(f);
 	text2.setCharacterSize(20);
 	text2.setFillColor(sf::Color::Black);
-	text2.setPosition(550, 180);
+	text2.setPosition(400, 180);
 	text2.setString("Sign In");
 
 	text3.setFont(f);
 	text3.setCharacterSize(20);
 	text3.setFillColor(sf::Color::Black);
-	text3.setPosition(350, 280);
+	text3.setPosition(300, 280);
 	text3.setString("Roll No.");
 
 	// define a 120x50 rectangle
-	sf::RectangleShape rectangle(sf::Vector2f(120.f, 30.f));
+	sf::RectangleShape rectangle(sf::Vector2f(200.f, 30.f));
 
 	rectangle.setOutlineColor(sf::Color::Black);
 	rectangle.setOutlineThickness(2); // Set the thickness of the outline
 	rectangle.setFillColor(sf::Color::White); // Set background color
-	rectangle.setPosition(350.f, 310.f); // Set the position as per your requirement
-
-
+	rectangle.setPosition(300.f, 310.f); // Set the position as per your requirement
 
 	//// change the size to 100x100
 	//rectangle.setSize(sf::Vector2f(100.f, 100.f));
 
+	text4.setFont(f);
+	text4.setCharacterSize(16);
+	text4.setFillColor(sf::Color::Black);
+	text4.setPosition(320, 310);
+	text4.setString("roll number i.e (1234) ");
 
-		// run the program as long as the window is open
+	text5.setFont(f);
+	text5.setCharacterSize(20);
+	text5.setFillColor(sf::Color::Black);
+	text5.setPosition(300, 380);
+	text5.setString("Password ");
+
+
+	// define a 120x50 rectangle
+	sf::RectangleShape rectangle1(sf::Vector2f(200.f, 30.f));
+
+	rectangle1.setOutlineColor(sf::Color::Black);
+	rectangle1.setOutlineThickness(2); // Set the thickness of the outline
+	rectangle1.setFillColor(sf::Color::White); // Set background color
+	rectangle1.setPosition(300.f, 410.f); // Set the position as per your requirement
+
+	text6.setFont(f);
+	text6.setCharacterSize(20);
+	text6.setFillColor(sf::Color::Black);
+	text6.setPosition(310, 415);
+	text6.setString("********* ");
+
+	// run the program as long as the window is open
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -1518,6 +1542,7 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
 
 		// clear the window with black color
 		window.clear(sf::Color::White);
@@ -1530,14 +1555,20 @@ int main()
 		window.draw(text2);
 		window.draw(text3);
 		window.draw(rectangle);
+		//cin >> num;
+		window.draw(text4);
+		window.draw(text5);
+		window.draw(rectangle1);
+		window.draw(text6);
+
 
 
 
 		// end the current frame
 		window.display();
+	
 
 	}
-
 
 	system1 object3;
 	object3.menu();

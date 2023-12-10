@@ -43,6 +43,11 @@
 //	rectangle.setPosition(350.f, 310.f); // Set the position as per your requirement
 //
 //
+//	text3.setFont(f);
+//	text3.setCharacterSize(20);
+//	text3.setFillColor(sf::Color::Black);
+//	text3.setPosition(350, 280);
+//	text3.setString("Roll No.");
 //
 //	//// change the size to 100x100
 //	//rectangle.setSize(sf::Vector2f(100.f, 100.f));
@@ -59,6 +64,7 @@
 //				if (event.type == sf::Event::Closed)
 //					window.close();
 //			}
+//			
 //
 //			// clear the window with black color
 //			window.clear(sf::Color::White);
@@ -79,4 +85,6 @@
 //			window.display();
 //			
 //		}
+//
+//
 //}

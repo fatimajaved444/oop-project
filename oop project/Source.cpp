@@ -1462,29 +1462,40 @@ public:
 
 int main()
 {
-	student rhs;
-
+	// create the window
 	sf::RenderWindow window(sf::VideoMode(1300, 700), "FLEX");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
 
+	// run the program as long as the window is open
 	while (window.isOpen())
 	{
+		// check all the window's events that were triggered since the last iteration of the loop
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
+			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
-		window.clear();
-		window.draw(shape);
+		// clear the window with black color
+		window.clear(sf::Color::White);
+
+		// draw everything here...
+		// window.draw(...);
+
+		// end the current frame
 		window.display();
 	}
 
 
 
 
+
+
+
+
+
+	student rhs;
 	system1 object3;
 	object3.menu();
 

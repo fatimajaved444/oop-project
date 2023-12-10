@@ -1467,7 +1467,7 @@ int main()
 	// create the window
 	sf::RenderWindow window(sf::VideoMode(900, 800), "Flex");
 
-	sf::Text text, text1, text2, text3,text4,text5,text6,text7;
+	sf::Text text, text1, text2, text3,text4,text5,text6,text7,text8,text9,text10,t,t1;
 	text.setFont(f);
 	text.setCharacterSize(100);
 	text.setFillColor(sf::Color::Blue);
@@ -1531,6 +1531,72 @@ int main()
 	text6.setPosition(310, 415);
 	text6.setString("********* ");
 
+
+	// define a 120x50 rectangle
+	sf::RectangleShape rectangle2(sf::Vector2f(250.f, 70.f));
+
+	rectangle2.setOutlineColor(sf::Color::Black);
+	rectangle2.setOutlineThickness(2); // Set the thickness of the outline
+	rectangle2.setFillColor(sf::Color::White); // Set background color
+	rectangle2.setPosition(300.f, 480.f); // Set the position as per your requirement
+
+
+	// define a 120x50 rectangle
+	sf::RectangleShape rectangle3(sf::Vector2f(30.f, 30.f));
+
+	rectangle3.setOutlineColor(sf::Color::Black);
+	rectangle3.setOutlineThickness(2); // Set the thickness of the outline
+	rectangle3.setFillColor(sf::Color::White); // Set background color
+	rectangle3.setPosition(320.f, 500.f); // Set the position as per your requirement
+
+
+
+	text7.setFont(f);
+	text7.setCharacterSize(20);
+	text7.setFillColor(sf::Color::Black);
+	text7.setPosition(380, 500);
+	text7.setString("I'm not robot");
+
+
+	text8.setFont(f);
+	text8.setCharacterSize(20);
+	text8.setFillColor(sf::Color::Red);
+	text8.setPosition(300, 570);
+	text8.setString("INSTRUCTIONS");
+
+	text9.setFont(f);
+	text9.setCharacterSize(15);
+	text9.setFillColor(sf::Color::Black);
+	text9.setPosition(300, 600);
+	text9.setString("=>> Roll number shoud be 4-digit");
+
+	text10.setFont(f);
+	text10.setCharacterSize(15);
+	text10.setFillColor(sf::Color::Black);
+	text10.setPosition(300, 620);
+	text10.setString("=>> Sign in to enter thhe roll number");
+
+
+
+
+	// define a circle shape and scale it for an ellipse effect
+	sf::CircleShape ellipse(12.f);
+	// set the scale for the x-axis to make it wider
+	ellipse.setScale(4.f, 2.f);
+	// change the fill color to blue
+	ellipse.setFillColor(sf::Color::Blue);
+	// set the position of the ellipse
+	ellipse.setPosition(380.f, 700.f);
+
+
+	t.setFont(f);
+	t.setCharacterSize(18);
+	t.setFillColor(sf::Color::White);
+	t.setPosition(400, 710);
+	t.setString("Sign In");
+
+
+
 	// run the program as long as the window is open
 	while (window.isOpen())
 	{
@@ -1542,11 +1608,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
-
 		// clear the window with black color
 		window.clear(sf::Color::White);
-
 
 		window.draw(text);
 
@@ -1560,16 +1623,20 @@ int main()
 		window.draw(text5);
 		window.draw(rectangle1);
 		window.draw(text6);
+		window.draw(rectangle2);
+		window.draw(rectangle3);
 
+		window.draw(text7);
+		window.draw(text8);
+		window.draw(text9);
+		window.draw(text10);
 
-
+		window.draw(ellipse);
+		window.draw(t);
 
 		// end the current frame
 		window.display();
-	
-
 	}
-
 	system1 object3;
 	object3.menu();
 

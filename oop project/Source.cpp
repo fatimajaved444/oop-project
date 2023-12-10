@@ -15,7 +15,8 @@ protected:
 	int rollnum;
 	int contact;
 	int age;
-	string* rcourses;
+	int batch;
+	//string* rcourses;
 	int max = 8;
 
 	int present;
@@ -41,8 +42,7 @@ public:
 		rollnum = 0;
 		contact = 0;
 		age = 0;
-		
-		rcourses = new string[max];
+	
 	}
 
 	student(string name1, int rollnum1, int contact1, int age1, int present1, int absent1, int total1, float per1)
@@ -51,17 +51,11 @@ public:
 		rollnum = rollnum1;
 		contact = contact1;
 		age = age1;
-		//courses = courses1;
-		/*present = present1;
-		absent = absent1;
-		total = total1;
-		per = per1;*/
+		
 	}
 
 	~student()
-	{
-		delete[]rcourses;
-	}
+	{}
 
 
 	void display1(const string& temp) {
@@ -144,8 +138,11 @@ public:
 			ofstream file("jav.txt", ios::app);
 			if (file.is_open())
 			{
-				string name, courses;
-				int age, contact;
+				/*string name, courses;
+				int age, contact,batch;*/
+
+				cout << "enter batch: ";
+				cin >> batch;
 
 				cout << "enter name: ";
 				cin.ignore();			 // clear the newline character from the input buffer
@@ -158,13 +155,10 @@ public:
 				cin >> age;
 
 				// add the new student to the file
-				file << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
+				file << rollnum<<"-L"<<batch << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
 				file.close();
 
 				cout << "student added successfully." << endl;
-
-
-
 
 		}
 		else
@@ -172,7 +166,6 @@ public:
 			cout << "rollnumber is not authentic not 4 digit " << endl;
 		}
 
-	
 		//	display1("jav.txt");
 
 			// now, add the roll number to att.txt
@@ -395,9 +388,11 @@ public:
 				cin >> contact;
 				cout << "age: ";
 				cin >> age;
+				cout << "batch: ";
+				cin >> batch;
 
 				cout << "student with rollnum " << r << " edited" << endl;
-				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
+				outfile << rollnum <<"-L"<<batch << "\t\t" << contact << "\t\t" << age << "\t\t" << name << endl;
 				continue;
 			}
 			outfile << line << endl;
@@ -665,6 +660,9 @@ protected:
 	int capacity;
 	string students;
 	string newcourse;
+	const int MAX = 9;
+	string rarr[9];
+	
 public:
 
 	void registeration()
@@ -675,13 +673,14 @@ public:
 	//	newroll = r;
 		const int cnum = 8;
 		string c[cnum] = { "cs1004","cs1005","cs1006","cs1007","ee1001","mt1002","ee1003","mt1008"};
-		rcourses = new string[max];
+		//rcourses = new string[max];
+		
 
 		ifstream file("jav.txt");
 		if (!file.is_open())
 		{
 			cout << "file not opened" << endl;
-			delete[]rcourses;
+		//	delete[]rcourses;
 			return;
 		}
 
@@ -690,7 +689,7 @@ public:
 		{
 			cout << "file not opened" << endl;
 			file.close();
-			delete[]rcourses;
+		//	delete[]rcourses;
 			return;
 		}
 
@@ -708,7 +707,7 @@ public:
 			
 			if (courseavailable(courseid, c, cnum))
 			{
-				rcourses[i] = courseid;
+				rarr[i] = courseid;
 				//newcourse = rcourses[i];
 			}
 			else
@@ -737,7 +736,7 @@ public:
 				outfile << "\t\t\t";
 				for (int i = 0; i < num; i++)
 				{
-					outfile << rcourses[i] << " ";
+					outfile << rarr[i] << " ";
 				}
 				outfile << endl;
 				continue;
@@ -783,7 +782,7 @@ public:
 				for (int i = 0; i < num; i++) 
 				{
 					
-					if (rcourses[i]==code) {
+					if (rarr[i]==code) {
 						tempfile << "  " << rollnum;
 						break;
 					}
@@ -812,11 +811,11 @@ public:
 		{
 			cout << "roll number not found" << endl;
 			remove("tempfile.txt"); // delete the temporary file
+			//delete[]rcourses;
+			return;
 		}
-		delete[]rcourses;
+	//	delete[]rcourses;
 	}
-
-	
 	void withdraw() {
 		int r;
 		cout << "enter roll number: " << endl;
@@ -985,9 +984,6 @@ public:
 		}
 	}
 
-
-
-
 	void addstudentincourses()
 	{
 		string ccode;
@@ -1123,7 +1119,6 @@ public:
 			remove("tempfile.txt"); // delete the temporary file
 		}
 	}
-
 	void removestudentfromcourses() {
 		string ccode;
 		cout << "enter course code: " << endl;
@@ -1264,7 +1259,48 @@ public:
 	}
 
 };
+class filehandler {
 
+public:
+
+
+
+	void display1(const string& temp) {
+		cout << endl << endl << "---------------- file contents --------------------------" << endl << endl;
+		ifstream file("jav.txt");
+		if (file.is_open()) {
+			char a;
+			while (file.get(a))
+			{
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+	void display2(const string& temp) {
+		cout << endl << endl << "---------------- file contents --------------------------" << endl << endl;
+		ifstream file("c.txt");
+		if (file.is_open()) {
+			char a;
+			while (file.get(a))
+			{
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+
+
+
+
+
+};
 class system1// :public student//public attendance
 {
 public:
@@ -1408,6 +1444,7 @@ public:
 				}
 			}
 			else if (key == 4) {
+				
 				int k5 = 0;
 				while (k5 != 3)
 				{
@@ -1450,14 +1487,20 @@ public:
 					}
 					else if (k3 == 2)
 					{
-						obj.display1("jav.txt");
+					    obj.display1("jav.txt");
 						rhs.withdraw();
 					}
 				}
 			}
+			else if (key == 6)
+			{
+				break;
+ 
+			}
 		}
 	}
 };
+
 
 int main()
 {

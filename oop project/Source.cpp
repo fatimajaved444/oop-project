@@ -2,6 +2,9 @@
 #include<fstream>
 #include<sstream>
 #include<string>
+#include <SFML/Graphics.hpp>
+
+
 using namespace std;
 
 class courses;
@@ -1460,6 +1463,27 @@ public:
 int main()
 {
 	student rhs;
+
+	sf::RenderWindow window(sf::VideoMode(1300, 700), "FLEX");
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		window.clear();
+		window.draw(shape);
+		window.display();
+	}
+
+
+
 
 	system1 object3;
 	object3.menu();

@@ -1,11 +1,12 @@
 rollnum			contact		age		name				courses	
 	
-5200-L19		100001		18		amna_amjaad			 
-5565-L19		200002		19		muhammad_ali 			
-6661-L20		300003		24		abdul_wahab			
-6652-L20		400004		22		fatima_javed			
-6846-L21		500005		20		simal_butt			
-7070-L21		600006		18		ahmed_akbar			
-7500-L22		700007		19		azlan_malik			
-8200-L22		800008		20		nimra_fahad				
-8882-L23		900009		18		fahad_yousaf			 
+
+5200-L20		100001		22		amna_amjad			
+5565-L19		200002		19		maryam_aly
+6661-L20		300003		20		abdul_wahab
+6652-L20		400004		19		fatima_javed			cs1004
+6846-L21		500005		21		simal_butt
+7070-L21		600006		20		muhammad_ali			cs1004
+7500-L22		700007		21		eman_akram
+8200-L22		800008		22		nimra_fahad
+8882-L23		900009		24		fahad_yousaf

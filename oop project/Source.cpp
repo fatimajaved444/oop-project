@@ -16,10 +16,11 @@ protected:
 	int contact;
 	int age;
 	int batch;
-	//string* rcourses;
+	string* rcourses;
 	int max = 8;
 
 	int present;
+
 	int absent;
 	int total;
 	float per;
@@ -57,9 +58,8 @@ public:
 	~student()
 	{}
 
-
 	void display1(const string& temp) {
-		cout << endl << endl << "---------------- file contents --------------------------" << endl << endl;
+		cout << endl << endl << "=========================================== FILE CONTENT =========================================" << endl << endl;
 		ifstream file("jav.txt");
 		if (file.is_open()) {
 			char a;
@@ -74,7 +74,7 @@ public:
 		}
 	}
 	void display2(const string& temp) {
-		cout << endl << endl << "---------------- file contents --------------------------" << endl << endl;
+		cout << endl << endl << "=========================================== FILE CONTENT =========================================" << endl << endl;
 		ifstream file("c.txt");
 		if (file.is_open()) {
 			char a;
@@ -96,7 +96,7 @@ public:
 		cout << "enter the roll number: ";
 		cin >> rollnum;
 		int rollnumcheck = rollnum;
-
+		int rrrr = rollnum;
 		//check for 4_digit rollnum
 		while (rollnumcheck != 0)
 		{
@@ -134,7 +134,7 @@ public:
 				return;
 			}
 
-			// roll number is unique, proceed to add student
+			/// roll number is unique, proceed to add student
 			ofstream file("jav.txt", ios::app);
 			if (file.is_open())
 			{
@@ -166,15 +166,15 @@ public:
 			cout << "rollnumber is not authentic not 4 digit " << endl;
 		}
 
-		//	display1("jav.txt");
+			display1("jav.txt");
 
-			// now, add the roll number to att.txt
+			 ///now, add the roll number to att.txt
 			ofstream attfile("att.txt", ios::app);
 			if (attfile.is_open())
 			{
 				attfile << rollnum << "\t\t0\t\t0\t\t0\t\t0" << endl; // assuming initial attendance details
 				attfile.close();
-				//cout << "student added to att.txt successfully." << endl;
+				cout << "student added to att.txt successfully." << endl;
 			}
 			else
 			{
@@ -188,7 +188,7 @@ public:
 			{
 				marksfile << rollnum << "\t\t0\t\t0\t\t0" << endl; // assuming initial attendance details
 				marksfile.close();
-				//cout << "student added to att.txt successfully." << endl;
+				cout << "student added to att.txt successfully." << endl;
 			}
 			else
 			{
@@ -295,7 +295,7 @@ public:
 			else
 			{
 				cout << "student with roll number " << r << " removed successfully from att.txt." << endl;
-				//display1("att.txt");
+				display1("att.txt");
 			}
 
 
@@ -335,7 +335,7 @@ public:
 			else
 			{
 				cout << "student with roll number " << r << " removed successfully from marks.txt." << endl;
-				//display1("marks.txt");
+				display1("marks.txt");
 			}
 		}
 
@@ -424,21 +424,20 @@ public:
 		}
 	}
 
-	//void courseregistration()
-	//{
-	//	ofstream outfile("jav.txt", ios::app);
-	//	{
-	//		if (!outfile.is_open())
-	//		{
-	//			cout << "file not opened\n";
-	//		}
-	//		outfile << "the available courses are: " << endl;
-	//		outfile << "oop, discrete, coal, data, cps, linear, dld,  de " << endl;
-	//		outfile.close();
-	//		display1("jav.txt");
-	//	}
-	//}
-
+	void courseregistration()
+	{
+		ofstream outfile("jav.txt", ios::app);
+		{
+			if (!outfile.is_open())
+			{
+				cout << "file not opened\n";
+			}
+			outfile << "the available courses are: " << endl;
+			outfile << "oop, discrete, coal, data, cps, linear, dld,  de " << endl;
+			outfile.close();
+			display1("jav.txt");
+		}
+	}
 
 	bool courseavailable(const string& course, const string* c, const int& cnum)
 	{
@@ -506,7 +505,7 @@ public:
 					continue;
 				}
 				   
-				//per = (present / total) * 100;
+				per = (present / total) * 100;
 
 			}
 			outfile << line << endl;
@@ -582,9 +581,9 @@ public:
 			{
 				b = true;
 				cout << "enter students detail: " << endl;
-				//cin.ignore();
-				//cout << "name: ";
-				//getline(cin, name);
+				cin.ignore();
+				cout << "name: ";
+				getline(cin, name);
 
 				rollnum = r;                                           //keep rollnum same
 
@@ -662,7 +661,8 @@ protected:
 	string newcourse;
 	const int MAX = 9;
 	string rarr[9];
-	
+
+
 public:
 
 	void registeration()
@@ -670,17 +670,14 @@ public:
 		int r;
 		cout << "enter rollnum for course registration: " << endl;
 		cin >> r;
-	//	newroll = r;
+	
 		const int cnum = 8;
 		string c[cnum] = { "cs1004","cs1005","cs1006","cs1007","ee1001","mt1002","ee1003","mt1008"};
-		//rcourses = new string[max];
 		
-
 		ifstream file("jav.txt");
 		if (!file.is_open())
 		{
 			cout << "file not opened" << endl;
-		//	delete[]rcourses;
 			return;
 		}
 
@@ -689,7 +686,6 @@ public:
 		{
 			cout << "file not opened" << endl;
 			file.close();
-		//	delete[]rcourses;
 			return;
 		}
 
@@ -708,31 +704,34 @@ public:
 			if (courseavailable(courseid, c, cnum))
 			{
 				rarr[i] = courseid;
-				//newcourse = rcourses[i];
 			}
 			else
 			{
 				cout << "invalid course" << endl;
 				file.close();
 				outfile.close();
-				//delete[]rcourses;
 				remove("tempfile.txt");
 				return;
 			}
 		}
+		int batch;
 		while (getline(file, line))
 		{
 			istringstream c(line);
 			int r1;
 			c >> r1;
 
+			
+
 			if (r1 == r)
 			{
+				//cout << r1 << "     " << r << endl;
 				b = true;
 				rollnum = r;
-				c >> contact >> age >> name;
+				c.ignore(2);
+				c >> batch >> contact>>age>>name;
 
-				outfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
+				outfile << rollnum<<"-L"<<batch << "\t\t" << contact<<"\t\t"<<age<<"\t\t"<<name;
 				outfile << "\t\t\t";
 				for (int i = 0; i < num; i++)
 				{
@@ -741,6 +740,7 @@ public:
 				outfile << endl;
 				continue;
 			}
+
 			outfile << line << endl;
 		}
 
@@ -811,11 +811,13 @@ public:
 		{
 			cout << "roll number not found" << endl;
 			remove("tempfile.txt"); // delete the temporary file
-			//delete[]rcourses;
+		
 			return;
 		}
-	//	delete[]rcourses;
+
 	}
+
+
 	void withdraw() {
 		int r;
 		cout << "enter roll number: " << endl;
@@ -872,7 +874,7 @@ public:
 					return;
 				}
 
-				// remove the specified course from the student's courses
+			//	 remove the specified course from the student's courses
 				string updatedcourses;
 				ss.clear(); // clear the state of stringstream
 				ss.seekg(0); // reset the stringstream position to the beginning
@@ -882,7 +884,7 @@ public:
 					}
 				}
 
-				// write back the updated information to the output file
+			//	 write back the updated information to the output file
 				outfile << rollnumfromfile << "\t\t" << contact << "\t\t" << age << "\t\t" << name;
 				outfile << "\t\t\t" << updatedcourses << endl;
 
@@ -896,7 +898,7 @@ public:
 		file.close();
 		outfile.close();
 
-		// remove the original file and rename the temp file
+	//	 remove the original file and rename the temp file
 		if (studentfound) {
 			if (remove("jav.txt") != 0) {
 				cout << "error in deleting the file" << endl;
@@ -921,61 +923,61 @@ public:
 				return;
 			}
 
-		//	string courseline;  // rename 'line' to 'courseline'
-		//	while (getline(coursefile, courseline)) {
-		//		istringstream iss(courseline);
+			string courseline;  // rename 'line' to 'courseline'
+			while (getline(coursefile, courseline)) {
+				istringstream iss(courseline);
 
-		//		//string code;  // declare 'code' here
-		//		//if (!(iss >> code)) 
-		//		//{
-		//		//	// handle the case where reading the course code fails
-		//		//	cout << "error: unable to read course code." << endl;
-		//		//	break;
-		//		//}
-		//		iss >> code;
+				//string code;  // declare 'code' here
+				//if (!(iss >> code)) 
+				//{
+				//	// handle the case where reading the course code fails
+				//	cout << "error: unable to read course code." << endl;
+				//	break;
+				//}
+				iss >> code;
 
-		//		tempfile << line;
+				tempfile << line;
 
 
-		//		if (withdraw == code) {
-		//			// if the course is found, remove the student's roll number from the line
-		//			string students;
-		//			iss >> ws; // skip whitespaces
+				if (withdraw == code) {
+					// if the course is found, remove the student's roll number from the line
+					string students;
+					iss >> ws; // skip whitespaces
 
-		//			// manually update the student list
-		//			string updatedstudents;
-		//			string rollnumstr;
+					// manually update the student list
+					string updatedstudents;
+					string rollnumstr;
 
-		//			while (iss >> rollnumstr) {
-		//				int rollnumincourse = stoi(rollnumstr);
-		//				if (rollnumincourse != r) {
-		//					updatedstudents += " " + to_string(rollnumincourse);
-		//				}
-		//			}
-		//			// update the line with the modified student list
-		//			tempfile << updatedstudents;
-		//		}
-		//	/*	else
-		//		{
-		//			cout << withdraw << "     " << code << endl;
-		//		}*/
+					while (iss >> rollnumstr) {
+						int rollnumincourse = stoi(rollnumstr);
+						if (rollnumincourse != r) {
+							updatedstudents += " " + to_string(rollnumincourse);
+						}
+					}
+					// update the line with the modified student list
+					tempfile << updatedstudents;
+				}
+			/*	else
+				{
+					cout << withdraw << "     " << code << endl;
+				}*/
 
-		//		tempfile << endl;  // add a newline after each line (including the original or modified line)
-		//	}
-		//	coursefile.close();
-		//	tempfile.close();
+				tempfile << endl;  // add a newline after each line (including the original or modified line)
+			}
+			coursefile.close();
+			tempfile.close();
 
-		//	if (remove(coursefilename.c_str()) != 0) {
-		//		cout << "error in deleting the course file" << endl;
-		//	}
+			if (remove(coursefilename.c_str()) != 0) {
+				cout << "error in deleting the course file" << endl;
+			}
 
-		//	if (rename("temp_course.txt", coursefilename.c_str()) != 0) {
-		//		cout << "error in renaming the temporary file" << endl;
-		//	}
-		//	else {
-		//		cout << "course file updated successfully." << endl;
-		//		display2(coursefilename);
-		//	}
+			if (rename("temp_course.txt", coursefilename.c_str()) != 0) {
+				cout << "error in renaming the temporary file" << endl;
+			}
+			else {
+				cout << "course file updated successfully." << endl;
+				display2(coursefilename);
+			}
 
 		}
 		else {
@@ -1082,7 +1084,6 @@ public:
 			while (getline(studentfile, line))
 			{
 				istringstream iss(line);
-
 				iss >> rollnum;
 
 				tempfile << line;
@@ -1091,7 +1092,7 @@ public:
 				{
 					if (rollnum == studentrolls[i])
 					{
-						tempfile << " " << ccode;
+						tempfile << "\t\t\t" << ccode;
 						break;
 					}
 				}
@@ -1119,6 +1120,7 @@ public:
 			remove("tempfile.txt"); // delete the temporary file
 		}
 	}
+
 	void removestudentfromcourses() {
 		string ccode;
 		cout << "enter course code: " << endl;
@@ -1200,70 +1202,77 @@ public:
 				cout << "error in renaming the file" << endl;
 			}
 			else {
-				display2("c.txt");
+			//	display2("c.txt");
 				cout << "student removed from the course successfully." << endl;
-			}
-
-			const string stfilename = "jav.txt";
-			ifstream studentfile(stfilename);
-			ofstream tempfile("temp_sttxt");
-
-			if (!studentfile.is_open() || !tempfile.is_open()) {
-				cout << "error: unable to open student file or temporary file" << endl;
-				return;
-			}
-
-			while (getline(studentfile, line)) {
-				istringstream iss(line);
-				iss >> rollnum;
-
-				if (rollnum == rn) 
-				{
-					
-					iss >> contact >> age >> name;
-					tempfile << rollnum << "\t\t" << contact << "\t\t" << age << "\t\t" << name << "\t\t\t";
-					string currentcourse;
-					while (iss >> currentcourse) 
-					{
-						if (currentcourse != ccode) {
-							tempfile << currentcourse << "\t\t";
-						}
-					}
-					tempfile << endl;
-				}
-				else {
-					tempfile << line << endl;
-				}
-			}
-
-
-			studentfile.close();
-			tempfile.close();
-
-			if (remove(stfilename.c_str()) != 0) {
-				cout << "error in deleting the course file" << endl;
-			}
-
-			if (rename("temp_sttxt", stfilename.c_str()) != 0) {
-				cout << "error in renaming the temporary file" << endl;
-			}
-			else {
-				cout << "course file updated successfully." << endl;
-				display1(stfilename);
 			}
 		}
 		else {
 			cout << "course not found" << endl;
 			remove("tempfile.txt"); // delete the temporary file
 		}
+
+		// Now, remove the course from "jav.txt"
+		const string stfilename = "jav.txt";
+		ifstream studentfile(stfilename);
+		ofstream tempfile("temp_sttxt");
+
+		if (!studentfile.is_open() || !tempfile.is_open()) {
+			cout << "error: unable to open student file or temporary file" << endl;
+			return;
+		}
+
+		while (getline(studentfile, line)) {
+			istringstream iss(line);
+
+			if (rollnum == rn) {
+				string currentcourse;
+				while (iss >> currentcourse) {
+					if (currentcourse != ccode) {
+						tempfile << currentcourse << "\t\t";
+					}
+				}
+				tempfile << endl;
+			}
+			else {
+				tempfile << line << endl;
+			}
+		}
+
+		studentfile.close();
+		tempfile.close();
+
+		if (remove(stfilename.c_str()) != 0) {
+			cout << "error in deleting the course file" << endl;
+		}
+
+		if (rename("temp_sttxt", stfilename.c_str()) != 0) {
+			cout << "error in renaming the temporary file" << endl;
+		}
+		else {
+			cout << "course file updated successfully." << endl;
+			display1(stfilename);
+		}
 	}
 
-};
-class filehandler {
 
+
+
+
+};
+
+
+
+class validator {
 public:
 
 
+
+
+};
+
+class filehandler {
+
+public:
 
 	void display1(const string& temp) {
 		cout << endl << endl << "---------------- file contents --------------------------" << endl << endl;
@@ -1296,10 +1305,6 @@ public:
 		}
 	}
 
-
-
-
-
 };
 class system1// :public student//public attendance
 {
@@ -1311,17 +1316,18 @@ public:
 		courses rhs;
 	
 		int key = 0;
-		//obj.display1("jav.txt");
+	//	obj.display1("jav.txt");
 		cout << endl << endl;
 		while (key != 6)
 		{
-			cout << "-------------main menu-----------" << endl;
-			cout << "enter 1 for enrollment" << endl;
-			cout << "enter 2 for course registration" << endl;
-			cout << "enter 3 for attendance" << endl;
-			cout << "enter 4 for marks" << endl;
-			cout << "enter 5 for course withdrawal" << endl;
-			cout << "enter 6 for exit" << endl;
+			cout << "==============================MAIN MENU=============================="<<endl;
+			cout << "                        1==>>   enter 1 for enrollment" << endl;
+			cout << "                        2==>>   enter 2 for course registration" << endl;
+			cout << "                        3==>>   enter 3 for attendance" << endl;
+			cout << "                        4==>>   enter 4 for marks" << endl;
+			cout << "                        5==>>   enter 5 for course withdrawal" << endl;
+			cout << "                        6==>>   enter 6 for exit" << endl;
+			cout << "========================================================================" << endl;
 
 			cout << endl << "enter the key: " << endl;
 			cin >> key;
@@ -1331,14 +1337,15 @@ public:
 				int k = 0;
 				while (k != 5) {
 
-					cout << "---------------enrollment-----------------" << endl;
-					cout << "enter 1 to display already enrolled students" << endl;
-					cout << "enter 2 to add new student" << endl;
-					cout << "enter 3 to remove student" << endl;
-					cout << "enter 4 to edit student info" << endl;
-					cout << "enter 5 to exit" << endl;
+					cout << "-------------------ENROLLMENT--------------------" << endl;
+					cout << "  1==>>    enter 1 to display enrolled students" << endl;
+					cout << "  2==>>    enter 2 to add new student" << endl;
+					cout << "  3==>>    enter 3 to remove student" << endl;
+					cout << "  4==>>    enter 4 to edit student info" << endl;
+					cout << "  5==>>    enter 5 to exit" << endl;
+					cout << "---------------------------------------------------" << endl;
 
-					//cout << "enter 5 to display" << endl;
+					cout << "enter 5 to display" << endl;
 					int k;
 					cout << "enter the choice" << endl;
 					cin >> k;
@@ -1375,12 +1382,13 @@ public:
 				int k2 = 0;
 				while (k2 != 5)
 				{
-					cout << "-----------------course registration-----------------" << endl;
-					cout << "enter 1 to display the courses " << endl;
-					cout << "enter 2 to register the courses" << endl;
-					cout << "enter 3 to add student for a course" << endl;
-					cout << "enter 4 to remove student for a course" << endl;
-					cout << "enter 5 to exit" << endl;
+					cout << "-----------------COURSE REGISTRATION-----------------" << endl;
+					cout << "  1==>>  enter 1 to display the courses " << endl;
+					cout << "  2==>>  enter 2 to register the courses" << endl;
+					cout << "  3==>>  enter 3 to add student for a course" << endl;
+					cout << "  4==>>  enter 4 to remove student for a course" << endl;
+					cout << "  5==>>  enter 5 to exit" << endl;
+					cout << "------------------------------------------------------" << endl;
 
 					cout << "enter the choice" << endl;
 					cin >> k2;
@@ -1404,7 +1412,7 @@ public:
 					{
 						rhs.display2("c.txt");
 						rhs.removestudentfromcourses();
-					//	rhs.display2("c.txt");
+						
 					}
 
 					else if (k2 == 5)
@@ -1422,12 +1430,12 @@ public:
 				int k4 = 0;
 				while (k4 != 3)
 				{
-					cout << "-----------------attendace----------------" << endl;
-					cout << "enter 1 to display attendance" << endl;
-					cout << "enter 2 to mark attendance" << endl;
-					cout << "enter 3 to exit" << endl;
-
-					//int k2;
+					cout << "-----------------ATTENDANCE----------------" << endl;
+					cout << "  ==>>  enter 1 to display attendance" << endl;
+					cout << "  ==>>  enter 2 to mark attendance" << endl;
+					cout << "  ==>>  enter 3 to exit" << endl;
+					cout << "-------------------------------------------" << endl;
+					int k2;
 					cout << "enter the choice" << endl;
 					cin >> k4;
 					if (k4 == 1)
@@ -1448,12 +1456,12 @@ public:
 				int k5 = 0;
 				while (k5 != 3)
 				{
-					cout << "-----------------marks-----------------" << endl;
-					cout << "enter 1 to display marks" << endl;
-					cout << "enter 2 to assign marks" << endl;
-					cout << "enter 3 to exit" << endl;
-
-					//int k2;
+					cout << "-----------------MARKS----------------" << endl;
+					cout << "  ==>>  enter 1 to display marks" << endl;
+					cout << "  ==>>  enter 2 to assign marks" << endl;
+					cout << "  ==>>  enter 3 to exit" << endl;
+					cout << "-----------------------------------------" << endl;
+					int k2;
 					cout << "enter the choice" << endl;
 					cin >> k5;
 					if (k5 == 1)
@@ -1473,12 +1481,12 @@ public:
 				int k3 = 0;
 				while (k3 != 3)
 				{
-					cout << "-----------------course withdrawal-----------------" << endl;
-					cout << "enter 1 to display the course" << endl;
-					cout << "enter 2 to withdraw the courses" << endl;
-					cout << "enter 3 to exit" << endl;
+					cout << "-----------------COURSE WITHDRAWAL----------------" << endl;
+					cout << "  ==>>  enter 1 to display the course" << endl;
+					cout << "  ==>>  enter 2 to withdraw the courses" << endl;
+					cout << "  ==>>  enter 3 to exit" << endl;
 
-					//int k2;
+					int k2;
 					cout << "enter the choice" << endl;
 					cin >> k3;
 					if (k3 == 1)
@@ -1497,202 +1505,209 @@ public:
 				break;
  
 			}
+			else
+			{
+			cout << "invalid key" << endl;
+ }
 		}
 	}
 };
 
-
 int main()
 {
-	sf::Font f;
-	f.loadFromFile("new.ttf");
+	//sf::Font f;
+	//f.loadFromFile("new.ttf");
 
-	// create the window
-	sf::RenderWindow window(sf::VideoMode(900, 800), "Flex");
+	//// create the window
+	//sf::RenderWindow window(sf::VideoMode(900, 800), "Flex");
 
-	sf::Text text, text1, text2, text3,text4,text5,text6,text7,text8,text9,text10,t,t1;
-	text.setFont(f);
-	text.setCharacterSize(100);
-	text.setFillColor(sf::Color::Blue);
-	text.setPosition(350, 10);
-	text.setString("Flex");
-	text.setStyle(sf::Text::Underlined);
+	//sf::Text text, text1, text2, text3,text4,text5,text6,text7,text8,text9,text10,t,t1;
+	//text.setFont(f);
+	//text.setCharacterSize(100);
+	//text.setFillColor(sf::Color::Blue);
+	//text.setPosition(350, 10);
+	//text.setString("Flex");
+	//text.setStyle(sf::Text::Underlined);
 
-	text1.setFont(f);
-	text1.setCharacterSize(20);
-	text1.setFillColor(sf::Color::Blue);
-	text1.setPosition(370, 130);
-	text1.setString("Academic Portal\n  FAST NU LHR");
+	//text1.setFont(f);
+	//text1.setCharacterSize(20);
+	//text1.setFillColor(sf::Color::Blue);
+	//text1.setPosition(370, 130);
+	//text1.setString("Academic Portal\n  FAST NU LHR");
 
-	text2.setFont(f);
-	text2.setCharacterSize(20);
-	text2.setFillColor(sf::Color::Black);
-	text2.setPosition(400, 180);
-	text2.setString("Sign In");
+	//text2.setFont(f);
+	//text2.setCharacterSize(20);
+	//text2.setFillColor(sf::Color::Black);
+	//text2.setPosition(400, 180);
+	//text2.setString("Sign In");
 
-	text3.setFont(f);
-	text3.setCharacterSize(20);
-	text3.setFillColor(sf::Color::Black);
-	text3.setPosition(300, 280);
-	text3.setString("Roll No.");
+	//text3.setFont(f);
+	//text3.setCharacterSize(20);
+	//text3.setFillColor(sf::Color::Black);
+	//text3.setPosition(300, 280);
+	//text3.setString("Roll No.");
 
-	// define a 120x50 rectangle
-	sf::RectangleShape rectangle(sf::Vector2f(200.f, 30.f));
+	//// define a 120x50 rectangle
+	//sf::RectangleShape rectangle(sf::Vector2f(200.f, 30.f));
 
-	rectangle.setOutlineColor(sf::Color::Black);
-	rectangle.setOutlineThickness(2); // Set the thickness of the outline
-	rectangle.setFillColor(sf::Color::White); // Set background color
-	rectangle.setPosition(300.f, 310.f); // Set the position as per your requirement
+	//rectangle.setOutlineColor(sf::Color::Black);
+	//rectangle.setOutlineThickness(2); // Set the thickness of the outline
+	//rectangle.setFillColor(sf::Color::White); // Set background color
+	//rectangle.setPosition(300.f, 310.f); // Set the position as per your requirement
 
-	//// change the size to 100x100
-	//rectangle.setSize(sf::Vector2f(100.f, 100.f));
+	////// change the size to 100x100
+	////rectangle.setSize(sf::Vector2f(100.f, 100.f));
 
-	text4.setFont(f);
-	text4.setCharacterSize(16);
-	text4.setFillColor(sf::Color::Black);
-	text4.setPosition(320, 310);
-	text4.setString("roll number i.e (1234) ");
+	//text4.setFont(f);
+	//text4.setCharacterSize(16);
+	//text4.setFillColor(sf::Color::Black);
+	//text4.setPosition(320, 310);
+	//text4.setString("roll number i.e (1234) ");
 
-	text5.setFont(f);
-	text5.setCharacterSize(20);
-	text5.setFillColor(sf::Color::Black);
-	text5.setPosition(300, 380);
-	text5.setString("Password ");
-
-
-	// define a 120x50 rectangle
-	sf::RectangleShape rectangle1(sf::Vector2f(200.f, 30.f));
-
-	rectangle1.setOutlineColor(sf::Color::Black);
-	rectangle1.setOutlineThickness(2); // Set the thickness of the outline
-	rectangle1.setFillColor(sf::Color::White); // Set background color
-	rectangle1.setPosition(300.f, 410.f); // Set the position as per your requirement
-
-	text6.setFont(f);
-	text6.setCharacterSize(20);
-	text6.setFillColor(sf::Color::Black);
-	text6.setPosition(310, 415);
-	text6.setString("********* ");
+	//text5.setFont(f);
+	//text5.setCharacterSize(20);
+	//text5.setFillColor(sf::Color::Black);
+	//text5.setPosition(300, 380);
+	//text5.setString("Password ");
 
 
-	// define a 120x50 rectangle
-	sf::RectangleShape rectangle2(sf::Vector2f(250.f, 70.f));
+	//// define a 120x50 rectangle
+	//sf::RectangleShape rectangle1(sf::Vector2f(200.f, 30.f));
 
-	rectangle2.setOutlineColor(sf::Color::Black);
-	rectangle2.setOutlineThickness(2); // Set the thickness of the outline
-	rectangle2.setFillColor(sf::Color::White); // Set background color
-	rectangle2.setPosition(300.f, 480.f); // Set the position as per your requirement
+	//rectangle1.setOutlineColor(sf::Color::Black);
+	//rectangle1.setOutlineThickness(2); // Set the thickness of the outline
+	//rectangle1.setFillColor(sf::Color::White); // Set background color
+	//rectangle1.setPosition(300.f, 410.f); // Set the position as per your requirement
 
-
-	// define a 120x50 rectangle
-	sf::RectangleShape rectangle3(sf::Vector2f(30.f, 30.f));
-
-	rectangle3.setOutlineColor(sf::Color::Black);
-	rectangle3.setOutlineThickness(2); // Set the thickness of the outline
-	rectangle3.setFillColor(sf::Color::White); // Set background color
-	rectangle3.setPosition(320.f, 500.f); // Set the position as per your requirement
-
-	text7.setFont(f);
-	text7.setCharacterSize(20);
-	text7.setFillColor(sf::Color::Black);
-	text7.setPosition(380, 500);
-	text7.setString("I'm not robot");
+	//text6.setFont(f);
+	//text6.setCharacterSize(20);
+	//text6.setFillColor(sf::Color::Black);
+	//text6.setPosition(310, 415);
+	//text6.setString("********* ");
 
 
-	text8.setFont(f);
-	text8.setCharacterSize(20);
-	text8.setFillColor(sf::Color::Red);
-	text8.setPosition(300, 570);
-	text8.setString("INSTRUCTIONS");
+	//// define a 120x50 rectangle
+	//sf::RectangleShape rectangle2(sf::Vector2f(250.f, 70.f));
 
-	text9.setFont(f);
-	text9.setCharacterSize(15);
-	text9.setFillColor(sf::Color::Black);
-	text9.setPosition(300, 600);
-	text9.setString("=>> Roll number shoud be 4-digit");
-
-	text10.setFont(f);
-	text10.setCharacterSize(15);
-	text10.setFillColor(sf::Color::Black);
-	text10.setPosition(300, 620);
-	text10.setString("=>> Sign in to enter the roll number\n=>> Press SPACE or click on SIGN IN to continue");
+	//rectangle2.setOutlineColor(sf::Color::Black);
+	//rectangle2.setOutlineThickness(2); // Set the thickness of the outline
+	//rectangle2.setFillColor(sf::Color::White); // Set background color
+	//rectangle2.setPosition(300.f, 480.f); // Set the position as per your requirement
 
 
-	// define a circle shape and scale it for an ellipse effect
-	sf::CircleShape ellipse(12.f);
-	// set the scale for the x-axis to make it wider
-	ellipse.setScale(4.f, 2.f);
-	// change the fill color to blue
-	ellipse.setFillColor(sf::Color::Blue);
-	// set the position of the ellipse
-	ellipse.setPosition(380.f, 700.f);
+	//// define a 120x50 rectangle
+	//sf::RectangleShape rectangle3(sf::Vector2f(30.f, 30.f));
+
+	//rectangle3.setOutlineColor(sf::Color::Black);
+	//rectangle3.setOutlineThickness(2); // Set the thickness of the outline
+	//rectangle3.setFillColor(sf::Color::White); // Set background color
+	//rectangle3.setPosition(320.f, 500.f); // Set the position as per your requirement
+
+	//text7.setFont(f);
+	//text7.setCharacterSize(20);
+	//text7.setFillColor(sf::Color::Black);
+	//text7.setPosition(380, 500);
+	//text7.setString("I'm not robot");
 
 
-	t.setFont(f);
-	t.setCharacterSize(18);
-	t.setFillColor(sf::Color::White);
-	t.setPosition(400, 710);
-	t.setString("Sign In");
+	//text8.setFont(f);
+	//text8.setCharacterSize(20);
+	//text8.setFillColor(sf::Color::Red);
+	//text8.setPosition(300, 570);
+	//text8.setString("INSTRUCTIONS");
+
+	//text9.setFont(f);
+	//text9.setCharacterSize(15);
+	//text9.setFillColor(sf::Color::Black);
+	//text9.setPosition(300, 600);
+	//text9.setString("=>> Roll number shoud be 4-digit");
+
+	//text10.setFont(f);
+	//text10.setCharacterSize(15);
+	//text10.setFillColor(sf::Color::Black);
+	//text10.setPosition(300, 620);
+	//text10.setString("=>> Sign in to enter the roll number\n=>> Press SPACE or click on SIGN IN to continue");
 
 
-	// run the program as long as the window is open
-	while (window.isOpen())
-	{
-		// check all the window's events that were triggered since the last iteration of the loop
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			// "close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
-			{
-				window.close();
-			}
-			else if (event.type == sf::Event::TextEntered)
-			{
-				if (event.text.unicode == 32)
-				{
-					window.close();
-				}
-			}
+	//// define a circle shape and scale it for an ellipse effect
+	//sf::CircleShape ellipse(12.f);
+	//// set the scale for the x-axis to make it wider
+	//ellipse.setScale(4.f, 2.f);
+	//// change the fill color to blue
+	//ellipse.setFillColor(sf::Color::Blue);
+	//// set the position of the ellipse
+	//ellipse.setPosition(380.f, 700.f);
 
-			else if (sf::Mouse::getPosition(window).x > ellipse.getGlobalBounds().left && sf::Mouse::getPosition(window).x< ellipse.getGlobalBounds().left + ellipse.getGlobalBounds().width && sf::Mouse::getPosition(window).y
-			>ellipse.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (ellipse.getGlobalBounds().top + ellipse.getGlobalBounds().height) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				window.close();
-			}
-		}
-		// clear the window with black color
-		window.clear(sf::Color::White);
 
-		window.draw(text);
+	//t.setFont(f);
+	//t.setCharacterSize(18);
+	//t.setFillColor(sf::Color::White);
+	//t.setPosition(400, 710);
+	//t.setString("Sign In");
 
-		window.draw(text1);
 
-		window.draw(text2);
-		window.draw(text3);
-		window.draw(rectangle);
-		//cin >> num;
-		window.draw(text4);
-		window.draw(text5);
-		window.draw(rectangle1);
-		window.draw(text6);
-		window.draw(rectangle2);
-		window.draw(rectangle3);
+	//// run the program as long as the window is open
+	//while (window.isOpen())
+	//{
+	//	// check all the window's events that were triggered since the last iteration of the loop
+	//	sf::Event event;
+	//	while (window.pollEvent(event))
+	//	{
+	//		// "close requested" event: we close the window
+	//		if (event.type == sf::Event::Closed)
+	//		{
+	//			window.close();
+	//		}
+	//		else if (event.type == sf::Event::TextEntered)
+	//		{
+	//			if (event.text.unicode == 32)
+	//			{
+	//				window.close();
+	//			}
+	//		}
 
-		window.draw(text7);
-		window.draw(text8);
-		window.draw(text9);
-		window.draw(text10);
+	//		else if (sf::Mouse::getPosition(window).x > ellipse.getGlobalBounds().left && sf::Mouse::getPosition(window).x< ellipse.getGlobalBounds().left + ellipse.getGlobalBounds().width && sf::Mouse::getPosition(window).y
+	//		>ellipse.getGlobalBounds().top && sf::Mouse::getPosition(window).y < (ellipse.getGlobalBounds().top + ellipse.getGlobalBounds().height) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	//		{
+	//			window.close();
+	//		}
+	//	}
+	//	//// clear the window with black color
+	//	window.clear(sf::Color::White);
 
-		window.draw(ellipse);
-		window.draw(t);
+	//	window.draw(text);
 
-		// end the current frame
-		window.display();
-	}
+	//	window.draw(text1);
+
+	//	window.draw(text2);
+	//	window.draw(text3);
+	//	window.draw(rectangle);
+	//	//cin >> num;
+	//	window.draw(text4);
+	//	window.draw(text5);
+	//	/*window.draw(rectangle1);
+	//	window.draw(text6);*/
+	//	/*window.draw(rectangle2);
+	//	window.draw(rectangle3);
+
+	//	window.draw(text7);*/
+	//	window.draw(text8);
+	//	window.draw(text9);
+	//	window.draw(text10);
+
+	//	window.draw(ellipse);
+	//	window.draw(t);
+
+	//	// end the current frame
+	//	window.display();
+	//}
+
+
+
 	system1 object3;
 	object3.menu();
 
 	return 0;
 
 }
+

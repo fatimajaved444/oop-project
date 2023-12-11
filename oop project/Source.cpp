@@ -43,7 +43,6 @@ public:
 		rollnum = 0;
 		contact = 0;
 		age = 0;
-	
 	}
 
 	student(string name1, int rollnum1, int contact1, int age1, int present1, int absent1, int total1, float per1)
@@ -138,9 +137,7 @@ public:
 			ofstream file("jav.txt", ios::app);
 			if (file.is_open())
 			{
-				/*string name, courses;
-				int age, contact,batch;*/
-
+				
 				cout << "enter batch: ";
 				cin >> batch;
 
@@ -195,7 +192,6 @@ public:
 				cout << "error: unable to open att.txt for writing." << endl;
 				// you might want to handle this error appropriately, such as removing the student from jav.txt
 			}
-
 		}
 		else
 		{
@@ -661,7 +657,7 @@ protected:
 	string newcourse;
 	const int MAX = 9;
 	string rarr[9];
-
+	int attarr[9];
 
 public:
 
@@ -688,6 +684,9 @@ public:
 			file.close();
 			return;
 		}
+		int subattendance;
+
+
 
 		bool b = false;
 		string line;
@@ -699,11 +698,14 @@ public:
 		string courses;
 		for (int i = 0; i < num && i < max; i++)
 		{
+			cout << "enter the course: ";
 			cin >> courseid;
-			
+			cout << "enter attendance: ";
+			cin >> subattendance;
 			if (courseavailable(courseid, c, cnum))
 			{
 				rarr[i] = courseid;
+				attarr[i] = subattendance;
 			}
 			else
 			{
@@ -721,8 +723,6 @@ public:
 			int r1;
 			c >> r1;
 
-			
-
 			if (r1 == r)
 			{
 				//cout << r1 << "     " << r << endl;
@@ -737,6 +737,13 @@ public:
 				{
 					outfile << rarr[i] << " ";
 				}
+			
+				outfile << "\t\t\t";
+				for (int i = 0; i < num; i++)
+				{
+					outfile << attarr[i] << " ";
+				}
+
 				outfile << endl;
 				continue;
 			}
@@ -782,7 +789,8 @@ public:
 				for (int i = 0; i < num; i++) 
 				{
 					
-					if (rarr[i]==code) {
+					if (rarr[i]==code)
+					{
 						tempfile << "  " << rollnum;
 						break;
 					}
@@ -814,10 +822,7 @@ public:
 		
 			return;
 		}
-
 	}
-
-
 	void withdraw() {
 		int r;
 		cout << "enter roll number: " << endl;
@@ -1202,7 +1207,7 @@ public:
 				cout << "error in renaming the file" << endl;
 			}
 			else {
-			//	display2("c.txt");
+				display2("c.txt");
 				cout << "student removed from the course successfully." << endl;
 			}
 		}
@@ -1250,13 +1255,9 @@ public:
 		}
 		else {
 			cout << "course file updated successfully." << endl;
-			display1(stfilename);
+			//display1(stfilename);
 		}
 	}
-
-
-
-
 
 };
 
@@ -1529,6 +1530,7 @@ int main()
 	//text.setString("Flex");
 	//text.setStyle(sf::Text::Underlined);
 
+
 	//text1.setFont(f);
 	//text1.setCharacterSize(20);
 	//text1.setFillColor(sf::Color::Blue);
@@ -1680,29 +1682,27 @@ int main()
 	//	window.draw(text1);
 
 	//	window.draw(text2);
-	//	window.draw(text3);
-	//	window.draw(rectangle);
+	///*	window.draw(text3);
+	//	window.draw(rectangle);*/
 	//	//cin >> num;
-	//	window.draw(text4);
+	///*	window.draw(text4);
 	//	window.draw(text5);
-	//	/*window.draw(rectangle1);
-	//	window.draw(text6);*/
-	//	/*window.draw(rectangle2);
+	//	window.draw(rectangle1);
+	//	window.draw(text6);
+	//	window.draw(rectangle2);
 	//	window.draw(rectangle3);
 
-	//	window.draw(text7);*/
+	//	window.draw(text7);
 	//	window.draw(text8);
 	//	window.draw(text9);
 	//	window.draw(text10);
 
 	//	window.draw(ellipse);
-	//	window.draw(t);
+	//	window.draw(t);*/
 
 	//	// end the current frame
 	//	window.display();
 	//}
-
-
 
 	system1 object3;
 	object3.menu();

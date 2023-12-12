@@ -661,7 +661,7 @@ public:
 };
 
 //course class
-class courses :public student {
+class courses :public student,public filehandler {
 protected:
 	string code;
 	string sname;
@@ -841,8 +841,7 @@ public:
 		int r;
 		cout << "Enter roll number: " << endl;
 		cin >> r;
-
-		ifstream file("jav.txt");
+	ifstream file("jav.txt");
 		if (!file.is_open()) {
 			cout << "File not opened" << endl;
 			return;
@@ -1211,8 +1210,6 @@ class validator {
 public:
 
 
-
-
 };
 
 class filehandler {
@@ -1249,6 +1246,24 @@ public:
 			cout << "file not open";
 		}
 	}
+	void close()
+	{
+		ifstream file("jav.txt");
+		if (!file.is_open())
+		{
+			cout << "file not opened" << endl;
+			return;
+		}
+		//using tempfile
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open())
+		{
+			cout << "file not opened" << endl;
+			file.close();
+			return;
+		}
+	}
+	
 
 };
 class system1// :public student//public attendance
@@ -1719,12 +1734,6 @@ int main()
 		window1.draw(t2);
 		window1.display();
 	}
-
-
-
-
-
-
 	return 0;
 
 }

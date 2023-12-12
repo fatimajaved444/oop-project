@@ -7,7 +7,7 @@
 using namespace std;
 
 class courses;
-	//defining syudent class
+	//defining student class
 class student {
 	friend courses;
 	//data members
@@ -701,7 +701,7 @@ public:
 			return;
 		}
 
-		int subattendance;
+		//int subattendance;
 		bool b = false;
 		//taking inputs
 		string line;
@@ -1383,7 +1383,7 @@ public:
 					cout << "  ==>>  enter 2 to mark attendance" << endl;
 					cout << "  ==>>  enter 3 to exit" << endl;
 					cout << "-------------------------------------------" << endl;
-					int k2;
+					int k4;
 					cout << "enter the choice" << endl;
 					cin >> k4;
 					if (k4 == 1)
@@ -1418,7 +1418,7 @@ public:
 					cout << "  ==>>  enter 2 to assign marks" << endl;
 					cout << "  ==>>  enter 3 to exit" << endl;
 					cout << "-----------------------------------------" << endl;
-					int k2;
+					int k5 = 0;
 					cout << "enter the choice" << endl;
 					cin >> k5;
 					if (k5 == 1)
@@ -1452,7 +1452,7 @@ public:
 					cout << "  ==>>  enter 2 to withdraw the courses" << endl;
 					cout << "  ==>>  enter 3 to exit" << endl;
 
-					int k2;
+					int k3;
 					cout << "enter the choice" << endl;
 					cin >> k3;
 					if (k3 == 1)
@@ -1493,13 +1493,13 @@ public:
 int main()
 {
 	//setting font
-	sf::Font f;
+	sf::Font f,f1;
 	f.loadFromFile("new.ttf");
 
 	// create the window
 	sf::RenderWindow window(sf::VideoMode(900, 800), "Flex");
 
-	sf::Text text, text1, text2, text3,text4,text5,text6,text7,text8,text9,text10,t,t1;
+	sf::Text text, text1, text2, text3,text4,text5,text6,text7,text8,text9,text10,t,t1,t2;
 	//writinf=g flex
 	text.setFont(f);
 	text.setCharacterSize(100);
@@ -1653,8 +1653,6 @@ int main()
 		}
 		//// clear the window with white color
 		window.clear(sf::Color::White);
-
-
 		//drwaing everything
 		window.draw(text);
 
@@ -1686,7 +1684,47 @@ int main()
 	system1 object3;
 	object3.menu();
 
+	///////////////////////////////////////////////////////////////////////////////
+
+	//back scrren
+	f1.loadFromFile("new.ttf");
+
+	sf::RenderWindow window1(sf::VideoMode(1300,800), "closing window");
+
+	t1.setFont(f1);
+	t1.setCharacterSize(40);
+	t1.setFillColor(sf::Color::Blue);
+	t1.setPosition(200, 250);
+	t1.setString("STUDENT INFO UPDATED SUCCESSFULLY");
+	t1.setStyle(sf::Text::Underlined);
+	
+	t2.setFont(f1);
+	t2.setCharacterSize(20);
+	t2.setFillColor(sf::Color::Magenta);
+	t2.setPosition(400, 450);
+	t2.setString("FAST NU LHR\n  nu.edu.pk");
+
+
+	while (window1.isOpen())
+	{
+		sf::Event event;
+		while (window1.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window1.close();
+		}
+
+		window1.clear(sf::Color::White);
+		window1.draw(t1);
+		window1.draw(t2);
+		window1.display();
+	}
+
+
+
+
+
+
 	return 0;
 
 }
-

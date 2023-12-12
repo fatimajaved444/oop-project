@@ -1,12 +1,9 @@
-rollnum			contact		age		name				courses			attendance
-	
-5200-L20		100001		22		amna_amjad						
-5565-L19		200002		19		maryam_aly											
-6661-L20		300003		20		abdul_wahab
-6652-L20		400004		19		fatima_javed						
-6846-L21		500005		21		simal_butt						
+5200-L22		100001		22		amna_amjad			cs1005 cs1006 
+5565-L19		200002		19		maryam_aly		ee1001 mt1008 
+6652-L20		400004		19		fatima_javed		 cs1004
+6846-L21		500005		21		simal_butt			
 7070-L21		600006		20		muhammad_ali						
 7500-L22		700007		21		eman_akram						
 8200-L22		800008		22		nimra_fahad
-8882-L23		900009		24		fahad_yousaf						
-3333-L22		232323		23		hooria_aly
+8882-L23		234565		23		maleeha_ahmed
+1122-L23		121212		23		zainab_ali

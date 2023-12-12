@@ -7,8 +7,137 @@
 using namespace std;
 
 class courses;
+class validator  {
+public:
+	void validrollnum()
+	{
+		int count = 0;
+		int rollnum;
+		cout << "enter the roll number: ";
+		cin >> rollnum;
+		int rollnumcheck = rollnum;
+
+		//check for 4_digit rollnum authentication
+		while (rollnumcheck != 0)
+		{
+			rollnumcheck = rollnumcheck / 10;
+			count++;
+
+		}
+		if (count == 4)
+		{
+			cout << "rollnumber is authenticated" << endl;
+		}
+		else
+		{
+			cout << "rollnumber is not authentic" << endl;
+		}
+	}
+	//checking if course is picked from the course file
+	bool courseavailable(const string& course, const string* c, const int& cnum)
+	{
+
+		for (int i = 0; i < cnum; i++)
+		{
+			if (course == c[i])
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+};
+
+class filehandler {
+
+public:
+
+	//displaying attendance file
+	void displayatt() {
+		cout << endl << endl << "============================ATTENDANCE CONTENT===========================" << endl << endl;
+		ifstream file("att.txt");
+		if (file.is_open())
+		{
+			char a;
+			while (file.get(a)) {
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+	//displaying marks
+	void displaymarks() {
+		cout << endl << endl << "==============================MARKS CONTENT========================" << endl << endl;
+		ifstream file("marks.txt");
+		if (file.is_open()) {
+			char a;
+			while (file.get(a)) {
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+
+	void display1(const string& temp) {
+		cout << endl << endl << "==========================================FILE CONTENT=====================================" << endl << endl;
+		ifstream file("jav.txt");
+		if (file.is_open()) {
+			char a;
+			while (file.get(a))
+			{
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+	void display2(const string& temp) {
+		cout << endl << endl << "==========================================FILE CONTENT=====================================" << endl << endl;
+
+		ifstream file("c.txt");
+		if (file.is_open()) {
+			char a;
+			while (file.get(a))
+			{
+				cout << a;
+			}
+			file.close();
+		}
+		else {
+			cout << "file not open";
+		}
+	}
+	void close()
+	{
+		ifstream file("jav.txt");
+		if (!file.is_open())
+		{
+			cout << "file not opened" << endl;
+			return;
+		}
+		//using tempfile
+		ofstream outfile("tempfile.txt");
+		if (!outfile.is_open())
+		{
+			cout << "file not opened" << endl;
+			file.close();
+			return;
+		}
+	}
+	
+
+};
+
 	//defining student class
-class student {
+class student :public validator,public filehandler{
 	friend courses;
 	//data members
 protected:
@@ -57,57 +186,12 @@ public:
 	//destructor
 	~student()
 	{}
-	//displaying student file
-	void display1(const string& temp) {
-		cout << endl << endl << "=========================================== FILE CONTENT =========================================" << endl << endl;
-		ifstream file("jav.txt");
-		if (file.is_open()) {
-			char a;
-			while (file.get(a))
-			{
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}
-	//displaying course file
-	void display2(const string& temp) {
-		cout << endl << endl << "=========================================== FILE CONTENT =========================================" << endl << endl;
-		ifstream file("c.txt");
-		if (file.is_open()) {
-			char a;
-			while (file.get(a))
-			{
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}
 	//adding students
 	void addstudent()
 	{
-		int count = 0;
-		int rollnum;
-		cout << "enter the roll number: ";
+		int rollnumber;
+		cout << "enter the same rollnumber (authenticated): " << endl;
 		cin >> rollnum;
-		int rollnumcheck = rollnum;
-		
-		//check for 4_digit rollnum authentication
-		while (rollnumcheck != 0)
-		{
-			rollnumcheck = rollnumcheck / 10;
-			count++;
-
-		}
-		if (count == 4)
-		{
-			cout << "rollnumber is authenticated" << endl;
 
 			// check if the roll number already exists
 			ifstream checkfile("jav.txt");
@@ -189,11 +273,7 @@ public:
 			{
 				cout << "error: unable to open att.txt for writing." << endl;
 			}
-		}
-		else
-		{
-			cout << "error: unable to open file for writing." << endl;
-		}
+	
 	}
 
 	//remove student from student file
@@ -438,19 +518,7 @@ public:
 			display1("jav.txt");
 		}
 	}
-	//checking if course is picked from the course file
-	bool courseavailable(const string& course, const string* c, const int& cnum)
-	{
-			
-		for (int i = 0; i < cnum; i++)
-		{
-			if (course == c[i])
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+
 	//marking attendance
 	void attendance()
 	{
@@ -540,23 +608,7 @@ public:
 		}
 	}
 
-	//displaying attendance file
-	void displayatt() {
-		cout << endl << endl << "============================ATTENDANCE CONTENT===========================" << endl << endl;
-		ifstream file("att.txt");
-		if (file.is_open()) 
-		{
-			char a;
-			while (file.get(a)) {
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}	
-
+	
 	//marking marks
 	void marks()
 	{
@@ -642,26 +694,12 @@ public:
 			remove("tempfile.txt");                           // delete the temporary file
 		}
 	}
-	//displaying marks
-	void displaymarks() {
-		cout << endl << endl << "==============================MARKS CONTENT========================" << endl << endl;
-		ifstream file("marks.txt");
-		if (file.is_open()) {
-			char a;
-			while (file.get(a)) {
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}
+	
 
 };
 
 //course class
-class courses :public student,public filehandler {
+class courses :public student {
 protected:
 	string code;
 	string sname;
@@ -1206,66 +1244,8 @@ public:
 
 };
 
-class validator {
-public:
 
 
-};
-
-class filehandler {
-
-public:
-
-	void display1(const string& temp) {
-		cout << endl << endl << "file contents" << endl << endl;
-		ifstream file("jav.txt");
-		if (file.is_open()) {
-			char a;
-			while (file.get(a))
-			{
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}
-	void display2(const string& temp) {
-		cout << endl << endl << "file contents" << endl << endl;
-		ifstream file("c.txt");
-		if (file.is_open()) {
-			char a;
-			while (file.get(a))
-			{
-				cout << a;
-			}
-			file.close();
-		}
-		else {
-			cout << "file not open";
-		}
-	}
-	void close()
-	{
-		ifstream file("jav.txt");
-		if (!file.is_open())
-		{
-			cout << "file not opened" << endl;
-			return;
-		}
-		//using tempfile
-		ofstream outfile("tempfile.txt");
-		if (!outfile.is_open())
-		{
-			cout << "file not opened" << endl;
-			file.close();
-			return;
-		}
-	}
-	
-
-};
 class system1// :public student//public attendance
 {
 public:
@@ -1275,6 +1255,7 @@ public:
 		//making objects of classes
 		student obj;
 		courses rhs;
+		validator v;
 	
 		int key = 0;
 		cout << endl << endl;
@@ -1312,6 +1293,7 @@ public:
 					if (k == 1)
 					{
 						obj.display1("jav.txt");
+						v.validrollnum();
 					}
 					else if (k == 2)
 					{
@@ -1483,6 +1465,7 @@ public:
 					else if (k3 == 3)
 					{
 						cout << "exit withdrawal" << endl;
+						break;
 					}
 					else
 					{
